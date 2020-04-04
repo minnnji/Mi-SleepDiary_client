@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
-import App from './containers/AppContainer';
+import AppContainer from './containers/AppContainer';
 
 const middleware = [];
 
@@ -23,7 +23,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <AppContainer store={store}/>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
