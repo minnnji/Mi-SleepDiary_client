@@ -1,4 +1,4 @@
-import { requestBody, requestGoogleFitApi } from '../lib/googleFitApi';
+import { requestBody, requestGoogleFitApi } from '../lib/api/googleFit';
 
 const fetchSleepData = () => async dispatch => {
   // requestBody.startTimeMillis = new Date().setHours(0, 0, 0, 0);

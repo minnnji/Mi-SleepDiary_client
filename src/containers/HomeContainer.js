@@ -11,7 +11,7 @@ const HomeContainer = (props) => {
   })
 
   return (
-    <Home user={user} fetchSleepData={fetchSleepData}/>
+    <Home user={user} />
   );
 };
 

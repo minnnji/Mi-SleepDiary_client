@@ -13,12 +13,7 @@ const initialState = {
 const user = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_CURRENT_USER:
-      return {
-        ...state,
-        email: action.payload.email,
-        name: action.payload.name,
-        my_diaries: action.payload
-      };
+      return action.payload;
     default: return state;
   }
 };
