@@ -12,7 +12,5 @@ export const requestBody = {
 }
 
 export const requestGoogleFitApi = (requestBody) => {
-  console.log(123);
-  console.log(axios['post']('https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate', requestBody));
   return axios['post']('https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate', requestBody);
 };

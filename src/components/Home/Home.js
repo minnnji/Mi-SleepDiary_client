@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const { user } = props;
-  console.log(user);
 
   return (
     <div>

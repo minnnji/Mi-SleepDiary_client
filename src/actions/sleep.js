@@ -1,11 +1,8 @@
-import { requestBody, requestGoogleFitApi } from '../lib/api/googleFit';
+// import { requestBody, requestGoogleFitApi } from '../lib/api/googleFit';
+// import { setDailySleep } from '../lib/helper';
+// import { fetchSleep } from '../lib/api/user';
 
-const fetchSleepData = () => async dispatch => {
-  // requestBody.startTimeMillis = new Date().setHours(0, 0, 0, 0);
-  requestBody.startTimeMillis = new Date().setHours(-24, 0, 0, 0);
-  requestBody.endTimeMillis = new Date().setHours(23, 59, 59, 59);
-  const sleepData = await requestGoogleFitApi(requestBody);
-  console.log(sleepData);
+const fetchSleepData = (userId) => async dispatch => {
 };
 
 export default fetchSleepData;

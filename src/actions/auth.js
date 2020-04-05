@@ -3,7 +3,7 @@ import { SET_CURRENT_USER } from '../constants/actionTypes';
 import { fetchAuth } from '../lib/api/user';
 
 export const login = (res, cb) => dispatch => {
-  const {accessToken, tokenId, profileObj} = res;
+  const { accessToken, tokenId, profileObj } = res;
   localStorage.setItem('tokenId', tokenId);
   localStorage.setItem('accessToken', accessToken);
   setHeader(accessToken);

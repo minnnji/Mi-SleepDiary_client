@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { setHeader } from '../lib/auth';
+import { fetchAuth } from '../lib/api/user';
 import { SET_CURRENT_USER } from '../constants/actionTypes';
 import App from '../components/App/App';
 
@@ -14,12 +15,12 @@ const AppContainer = ({ setUser }) => {
       const profile = (isValid) ? decodedProfile : {};
       const token = (isValid) ? accessToken : null;
       console.log('token 만료!!!! ' + new Date(decodedProfile.exp * 1000));
+
       setHeader(token);
       setUser(profile);
       if (!isValid) localStorage.clear();
-
     } catch (err) {
-      setUser({});
+      console.log(err);
       setHeader(null);
       localStorage.clear();
     }
@@ -35,9 +36,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUser(data) {
-      dispatch({type: SET_CURRENT_USER, payload: data});
-    },
+    setUser(profile) {
+      fetchAuth(profile, (user) => {
+        dispatch({type: SET_CURRENT_USER, payload: user});
+      });
+    }
   }
 };
 
