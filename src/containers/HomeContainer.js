@@ -14,17 +14,16 @@ const HomeContainer = (props) => {
     const sleepResponse = await requestGoogleFitApi(requestBody);
     const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
     const dailySleepList = setDailySleep(sleepList);
-    console.log(dailySleepList);
-    // fetchSleep(userId, dailySleepList, (sleep) => {
-    //   console.log(sleep);
-    // });
+    fetchSleep(userId, dailySleepList, (sleep) => {
+      console.log(sleep);
+    });
 
     const updateUser = Object.assign({}, user);
     updateUser.sleep_last_updated_at = new Date();
 
-    // fetchUpdateUserInfo(userId, updateUser, (data) => {
-    //   console.log(data);
-    // })
+    fetchUpdateUserInfo(userId, updateUser, (data) => {
+      console.log(data);
+    })
   };
 
   useEffect(() => {

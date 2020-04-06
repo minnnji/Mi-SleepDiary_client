@@ -10,25 +10,24 @@ function getDiff(startTime, endTime) {
 
 export const setDailySleep = (fullSleepList) => {
   let endDay = new Date(getTimes(fullSleepList[0].startTimeNanos)).setHours(15, 0, 0, 0);
-  let currentDaySleepList = [];
   const dailySleepInfoList = [];
 
   function spliceCurrentDay() {
     const length = fullSleepList.length;
+    let currentDaySleepList = [];
 
     for(let i = 0; i < fullSleepList.length; i++) {
       if(getTimes(fullSleepList[i].startTimeNanos) > endDay) {
         endDay = new Date(getTimes(fullSleepList[i].startTimeNanos)).setHours(15, 0, 0, 0);
         currentDaySleepList = fullSleepList.splice(0, i);
-        console.log(fullSleepList);
+        return makeDailySleep(currentDaySleepList);
       }
     }
-    if(length === fullSleepList.length) currentDaySleepList = fullSleepList.splice(0, length);
 
+    if(!currentDaySleepList.length) currentDaySleepList = fullSleepList.splice(0, length);
     return makeDailySleep(currentDaySleepList);
   }
 
-  // console.log(moment(getTimes(sleepList[0].startTimeNanos)).hour(15).format());
   function makeDailySleep(sleepList) {
     const bedTime = getTimes(sleepList[0].startTimeNanos);
     const wakeUpTime = getTimes(sleepList[sleepList.length - 1].endTimeNanos);
@@ -58,24 +57,10 @@ export const setDailySleep = (fullSleepList) => {
     });
 
     if(fullSleepList.length) {
-      console.log(fullSleepList);
       return spliceCurrentDay();
     } else {
-      console.log(dailySleepInfoList);
       return dailySleepInfoList;
     }
   }
   return spliceCurrentDay();
 };
-
-// {
-//   user : { type: String , required: true },
-//   created_at: { type: Date, required: true },
-//   sleepDuration: { type: Number, required: true, default: 0, min: 0 },
-//   bedtime: { type: Date, required: true, default: 0, min: 0 },
-//   wakeUp_time: { type: Date, required: true, default: 0, min: 0 },
-//   sleepCycle: { type: Array, required: true, default: [] },
-//   light_sleep_percentage: { type: Number, required: true, default: 0, min: 0 },
-//   deep_sleep_percentage: { type: Number, required: true, default: 0, min: 0 },
-//   has_diary: { type: Boolean, required: true, default: false }
-// }

@@ -16,13 +16,13 @@ export const fetchAuth = async (profile, cb) => {
   }
 };
 
-export const fetchSleep = async (userId, sleepInfo, cb) => {
+export const fetchSleep = async (userId, sleepList, cb) => {
 
   try {
     const sleepResponse = await axios({
       method: 'post',
       url: `http://localhost:4000/api/users/${userId}/sleep`,
-      data: sleepInfo
+      data: sleepList
     });
     const sleep = await sleepResponse.data;
     cb(sleep);
