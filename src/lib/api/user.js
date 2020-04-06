@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export const fetchAuth = async (profile, cb) => {
   const { email, name } = profile;
-
   try {
     const userResponse = await axios({
       method: 'post',
@@ -11,21 +10,6 @@ export const fetchAuth = async (profile, cb) => {
     });
     const user = await userResponse.data;
     cb(user);
-  } catch(error) {
-    console.log(error);
-  }
-};
-
-export const fetchSleep = async (userId, sleepList, cb) => {
-
-  try {
-    const sleepResponse = await axios({
-      method: 'post',
-      url: `http://localhost:4000/api/users/${userId}/sleep`,
-      data: sleepList
-    });
-    const response = await sleepResponse.data;
-    cb(response);
   } catch(error) {
     console.log(error);
   }
