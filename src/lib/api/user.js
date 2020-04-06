@@ -24,22 +24,20 @@ export const fetchSleep = async (userId, sleepList, cb) => {
       url: `http://localhost:4000/api/users/${userId}/sleep`,
       data: sleepList
     });
-    const sleep = await sleepResponse.data;
-    cb(sleep);
+    const response = await sleepResponse.data;
+    cb(response);
   } catch(error) {
     console.log(error);
   }
 };
 
-export const fetchUpdateUserInfo = async (userId, updateInfo, cb) => {
+export const fetchUpdateUserInfo = async (userId, updateInfo) => {
   try {
-    const userResponse = await axios({
+    await axios({
       method: 'put',
       url: `http://localhost:4000/api/users/${userId}`,
       data: updateInfo
     });
-    const user = await userResponse.data;
-    cb(user);
   } catch(error) {
     console.log(error);
   }
