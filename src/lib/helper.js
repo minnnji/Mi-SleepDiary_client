@@ -9,21 +9,25 @@ function getDiff(startTime, endTime) {
 }
 
 export const setDailySleep = (fullSleepList) => {
-  let endDay = new Date(getTimes(fullSleepList[0].startTimeNanos)).setHours(15, 0, 0, 0);
-  const dailySleepInfoList = [];
+  const firstSleep = getTimes(fullSleepList[0].startTimeNanos);
+  const dailySleepList = [];
+  let endDay = moment(firstSleep).hour() < 21 ? new Date(firstSleep).setHours(15, 0, 0, 0)
+    : new Date(firstSleep).setHours(15 + 24, 0, 0, 0);
 
   function spliceCurrentDay() {
     const length = fullSleepList.length;
     let currentDaySleepList = [];
 
     for(let i = 0; i < fullSleepList.length; i++) {
-      if(getTimes(fullSleepList[i].startTimeNanos) > endDay) {
-        endDay = new Date(getTimes(fullSleepList[i].startTimeNanos)).setHours(15, 0, 0, 0);
+      const startTime = getTimes(fullSleepList[i].startTimeNanos);
+      if(startTime > endDay) {
+        endDay = moment(startTime).hour() < 21 ? new Date(startTime).setHours(15, 0, 0, 0)
+          : new Date(startTime).setHours(15 + 24, 0, 0, 0);
         currentDaySleepList = fullSleepList.splice(0, i);
+
         return makeDailySleep(currentDaySleepList);
       }
     }
-
     if(!currentDaySleepList.length) currentDaySleepList = fullSleepList.splice(0, length);
     return makeDailySleep(currentDaySleepList);
   }
@@ -46,9 +50,10 @@ export const setDailySleep = (fullSleepList) => {
         lightSleepSeconds += sleepCycle[i][1] - sleepCycle[i][0];
       }
     }
+
     const lightSleepPercentage = parseInt(lightSleepSeconds / (wakeUpTime - bedTime) * 100);
 
-    dailySleepInfoList.push({
+    dailySleepList.push({
       sleepDuration,
       bedTime: moment(bedTime).format(),
       wakeUpTime: moment(wakeUpTime).format(),
@@ -59,7 +64,7 @@ export const setDailySleep = (fullSleepList) => {
     if(fullSleepList.length) {
       return spliceCurrentDay();
     } else {
-      return dailySleepInfoList;
+      return dailySleepList;
     }
   }
   return spliceCurrentDay();

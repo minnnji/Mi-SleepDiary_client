@@ -8,7 +8,7 @@ import Home from '../components/Home/Home';
 
 const HomeContainer = (props) => {
   const { user } = props;
-  const getGoogleFitData = async(userId) => {
+  const getGoogleFitData = async(userId, cb) => {
     const lastUpdate = user.sleep_last_updated_at;
 
     requestBody.startTimeMillis = lastUpdate ? new Date(lastUpdate).setHours(21, 0, 0, 0)
@@ -26,6 +26,7 @@ const HomeContainer = (props) => {
         }
       });
     }
+    cb();
   };
 
   const getTodaySleep = async(userId) => {
@@ -37,8 +38,9 @@ const HomeContainer = (props) => {
 
   useEffect(() => {
     if (user.email) {
-      getGoogleFitData(user._id);
-      getTodaySleep(user._id);
+      getGoogleFitData(user._id, () => {
+        getTodaySleep(user._id);
+      });
     }
   });
 
