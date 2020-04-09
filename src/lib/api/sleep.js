@@ -23,6 +23,7 @@ export const fetchGetSleep = async(userId, startDate, endDate, allowEmptyValue, 
     });
     const response = await sleepResponse.data;
     cb(response);
+    // return response;
   } catch(error) {
     console.log(error);
   }

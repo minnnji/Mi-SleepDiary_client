@@ -29,15 +29,15 @@ export const setDailySleep = (fullSleepList) => {
       }
     }
     if(!currentDaySleepList.length) currentDaySleepList = fullSleepList.splice(0, length);
+
     return makeDailySleep(currentDaySleepList);
   }
 
   function makeDailySleep(sleepList) {
-    const bedTime = getTimes(sleepList[0].startTimeNanos);
-    const wakeUpTime = getTimes(sleepList[sleepList.length - 1].endTimeNanos);
-    const totalDiff = getDiff(moment(bedTime), moment(wakeUpTime));
-
-    const sleepDuration = `${totalDiff.hours()}시간 ${totalDiff.minutes()}분`;
+    const bedTime = getTimes(sleepList[0].startTimeNanos),
+          wakeUpTime = getTimes(sleepList[sleepList.length - 1].endTimeNanos),
+          totalDiff = getDiff(moment(bedTime), moment(wakeUpTime)),
+          sleepDuration = `${totalDiff.hours()}:${totalDiff.minutes()}`;
 
     const sleepCycle = sleepList.map((sleep, index) => {
       const type = index % 2 ? 'deep' : 'light';
@@ -45,20 +45,26 @@ export const setDailySleep = (fullSleepList) => {
     });
 
     let lightSleepSeconds = 0;
+    let deepSleepSeconds = 0;
     for(let i = 0; i < sleepCycle.length; i++) {
+      const duration = sleepCycle[i][1] - sleepCycle[i][0];
       if(sleepCycle[i][2] === 'light') {
-        lightSleepSeconds += sleepCycle[i][1] - sleepCycle[i][0];
+        lightSleepSeconds += duration;
+      } else {
+        deepSleepSeconds += duration;
       }
     }
 
-    const lightSleepPercentage = parseInt(lightSleepSeconds / (wakeUpTime - bedTime) * 100);
+    const deepSleepPercentage = parseInt(deepSleepSeconds / (wakeUpTime - bedTime) * 100);
 
     dailySleepList.push({
       sleepDuration,
       bedTime: moment(bedTime).format(),
       wakeUpTime: moment(wakeUpTime).format(),
       sleepCycle,
-      lightSleepPercentage
+      lightSleepSeconds,
+      deepSleepSeconds,
+      deepSleepPercentage
     });
 
     if(fullSleepList.length) {
@@ -67,5 +73,6 @@ export const setDailySleep = (fullSleepList) => {
       return dailySleepList;
     }
   }
+
   return spliceCurrentDay();
 };

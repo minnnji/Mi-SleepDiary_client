@@ -12,19 +12,22 @@ const HomeContainer = (props) => {
     const lastUpdate = user.sleep_last_updated_at;
 
     requestBody.startTimeMillis = lastUpdate ? new Date(lastUpdate).setHours(21, 0, 0, 0)
-      : new Date().setHours(-(24 * 7) + 21, 0, 0, 0);
+      : new Date().setHours(-(24 * 14) + 21, 0, 0, 0);
     requestBody.endTimeMillis = new Date().setHours(15, 0, 0, 0);
 
     const sleepResponse = await requestGoogleFitApi(requestBody);
-    const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
 
-    if(sleepList.length) {
-      const dailySleepList = setDailySleep(sleepList);
-      fetchPostSleep(userId, dailySleepList, (response) => {
-        if(response === 'ok') {
-          fetchUpdateUserInfo(userId, { sleep_last_updated_at: new Date() });
-        }
-      });
+    if(sleepResponse) {
+      const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
+
+      if(sleepList.length) {
+        const dailySleepList = setDailySleep(sleepList);
+        fetchPostSleep(userId, dailySleepList, (response) => {
+          if(response === 'ok') {
+            fetchUpdateUserInfo(userId, { sleep_last_updated_at: new Date() });
+          }
+        });
+      }
     }
     cb();
   };

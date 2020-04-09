@@ -11,10 +11,9 @@ export const requestBody = {
   ]
 };
 
-
-export const requestGoogleFitApi = (requestBody) => {
+export const requestGoogleFitApi = async (requestBody) => {
   try {
-    return axios['post']('https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate', requestBody);
+    return await axios.post('https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate', requestBody);
   } catch(error) {
     if(error.response.status === 400) {
       return;
