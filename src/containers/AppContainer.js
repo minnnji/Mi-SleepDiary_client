@@ -9,12 +9,12 @@ import App from '../components/App/App';
 const AppContainer = ({ setUser }) => {
   if (localStorage.tokenId && localStorage.accessToken) {
     try {
-      const {tokenId, accessToken} = localStorage;
+      const { tokenId, accessToken } = localStorage;
       const decodedProfile = jwtDecode(tokenId);
       const isValid = (decodedProfile.exp * 1000) - Date.now() > 0;
       const profile = (isValid) ? decodedProfile : {};
       const token = (isValid) ? accessToken : null;
-      console.log('token 만료!!!! ' + new Date(decodedProfile.exp * 1000));
+      console.log(`token 만료!!!! ${new Date(decodedProfile.exp * 1000)}`);
 
       setHeader(token);
       setUser(profile);
@@ -24,7 +24,7 @@ const AppContainer = ({ setUser }) => {
       setHeader(null);
       localStorage.clear();
     }
-  };
+  }
   return (
     <App />
   );
@@ -34,14 +34,12 @@ const mapStateToProps = state => {
 
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setUser(profile) {
-      fetchAuth(profile, (user) => {
-        dispatch({type: SET_CURRENT_USER, payload: user});
-      });
-    }
+const mapDispatchToProps = dispatch => ({
+  setUser(profile) {
+    fetchAuth(profile, user => {
+      dispatch({ type: SET_CURRENT_USER, payload: user });
+    });
   }
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

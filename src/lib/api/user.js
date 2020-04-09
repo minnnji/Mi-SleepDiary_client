@@ -10,7 +10,7 @@ export const fetchAuth = async (profile, cb) => {
     });
     const user = await userResponse.data;
     cb(user);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };
@@ -22,7 +22,7 @@ export const fetchUpdateUserInfo = async (userId, updateInfo) => {
       url: `http://localhost:4000/api/users/${userId}`,
       data: updateInfo
     });
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };

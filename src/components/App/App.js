@@ -11,11 +11,11 @@ export default function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path='/' render={props => checkAuth(<Entrance {...props}/>, true)}/>
-        <Route exact path='/login' render={props => <LoginContainer {...props}/>}/>
-        <Route exact path='/home' render={props => checkAuth(<HomeContainer {...props}/>)}/>
-        <Route exact path='/chart' render={props => checkAuth(<ChartContainer {...props}/>)}/>
-        <Route render={() => <Redirect to='/'/>}/>
+        <Route exact path="/" render={props => checkAuth(<Entrance {...props} />, true)} />
+        <Route exact path="/login" render={props => <LoginContainer {...props} />} />
+        <Route exact path="/home" render={props => checkAuth(<HomeContainer {...props} />)} />
+        <Route exact path="/chart" render={props => checkAuth(<ChartContainer {...props} />)} />
+        <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
   );

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchPostSleep = async(userId, sleepList, cb) => {
+export const fetchPostSleep = async (userId, sleepList, cb) => {
   try {
     const sleepResponse = await axios({
       method: 'post',
@@ -9,22 +9,21 @@ export const fetchPostSleep = async(userId, sleepList, cb) => {
     });
     const response = await sleepResponse.data;
     cb(response);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };
 
-export const fetchGetSleep = async(userId, startDate, endDate, allowEmptyValue, cb) => {
+export const fetchGetSleep = async (userId, startDate, endDate, allowEmptyValue, cb) => {
   console.log(startDate);
   try {
     const sleepResponse = await axios({
       method: 'get',
-      url: `http://localhost:4000/api/users/${userId}/sleep?startDate=${startDate}&endDate=${endDate}&allowEmptyValue=${allowEmptyValue}`,
+      url: `http://localhost:4000/api/users/${userId}/sleep?startDate=${startDate}&endDate=${endDate}&allowEmptyValue=${allowEmptyValue}`
     });
     const response = await sleepResponse.data;
     cb(response);
-    // return response;
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 };

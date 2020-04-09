@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { requestBody, requestGoogleFitApi } from '../lib/api/googleFit';
-import { setDailySleep } from '../lib/helper';
+import setDailySleep from '../lib/helper';
 import { fetchPostSleep, fetchGetSleep } from '../lib/api/sleep';
 import { fetchUpdateUserInfo } from '../lib/api/user';
 import Home from '../components/Home/Home';
 
-const HomeContainer = (props) => {
+const HomeContainer = props => {
   const { user } = props;
-  const getGoogleFitData = async(userId, cb) => {
+  const getGoogleFitData = async (userId, cb) => {
     const lastUpdate = user.sleep_last_updated_at;
 
     requestBody.startTimeMillis = lastUpdate ? new Date(lastUpdate).setHours(21, 0, 0, 0)
@@ -17,13 +17,13 @@ const HomeContainer = (props) => {
 
     const sleepResponse = await requestGoogleFitApi(requestBody);
 
-    if(sleepResponse) {
+    if (sleepResponse) {
       const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
 
-      if(sleepList.length) {
+      if (sleepList.length) {
         const dailySleepList = setDailySleep(sleepList);
-        fetchPostSleep(userId, dailySleepList, (response) => {
-          if(response === 'ok') {
+        fetchPostSleep(userId, dailySleepList, response => {
+          if (response === 'ok') {
             fetchUpdateUserInfo(userId, { sleep_last_updated_at: new Date() });
           }
         });
@@ -32,12 +32,12 @@ const HomeContainer = (props) => {
     cb();
   };
 
-  const getTodaySleep = async(userId) => {
+  const getTodaySleep = async userId => {
     const today = new Date();
-    fetchGetSleep(userId, today, today, false, (sleep) => {
+    fetchGetSleep(userId, today, today, false, sleep => {
       console.log(sleep);
     });
-  }
+  };
 
   useEffect(() => {
     if (user.email) {
@@ -59,9 +59,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-};
+const mapDispatchToProps = dispatch => ({
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
