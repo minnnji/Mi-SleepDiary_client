@@ -55,7 +55,7 @@ export const setDailySleep = fullSleepList => {
       }
     }
 
-    const deepSleepPercentage = parseInt(deepSleepSeconds / (wakeUpTime - bedTime) * 100);
+    const deepSleepPercentage = parseInt((deepSleepSeconds / (wakeUpTime - bedTime) * 100), 10);
 
     dailySleepList.push({
       sleepDuration,

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchAuth = async (profile, cb) => {
+export const postUser = async (profile, cb) => {
   const { email, name } = profile;
   try {
     const userResponse = await axios({
