@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { requestBody, requestGoogleFitApi } from '../lib/api/googleFit';
-import setDailySleep from '../lib/helper';
+import { setDailySleep } from '../lib/helper';
 import { fetchPostSleep, fetchGetSleep } from '../lib/api/sleep';
 import { fetchUpdateUserInfo } from '../lib/api/user';
+import * as actions from '../actions/index';
 import Home from '../components/Home/Home';
 
 const HomeContainer = props => {
-  const { user } = props;
-  const getGoogleFitData = async (userId, cb) => {
+  const { user, getLatelySleep } = props;
+  const getGoogleFitData = async cb => {
     const lastUpdate = user.sleep_last_updated_at;
 
     requestBody.startTimeMillis = lastUpdate ? new Date(lastUpdate).setHours(21, 0, 0, 0)
@@ -17,32 +18,39 @@ const HomeContainer = props => {
 
     const sleepResponse = await requestGoogleFitApi(requestBody);
 
-    if (sleepResponse) {
-      const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
+    cb(sleepResponse);
+  };
 
-      if (sleepList.length) {
-        const dailySleepList = setDailySleep(sleepList);
-        fetchPostSleep(userId, dailySleepList, response => {
-          if (response === 'ok') {
-            fetchUpdateUserInfo(userId, { sleep_last_updated_at: new Date() });
-          }
-        });
-      }
+  const postSleeps = async (userId, sleepResponse, cb) => {
+    if (!sleepResponse) return cb();
+
+    const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
+    if (!sleepList.length) return cb();
+
+    const dailySleepList = setDailySleep(sleepList);
+    const response = await fetchPostSleep(userId, dailySleepList);
+    if (response === 'ok') {
+      fetchUpdateUserInfo(userId, { sleep_last_updated_at: new Date() });
     }
+
     cb();
   };
 
   const getTodaySleep = async userId => {
     const today = new Date();
+    actions.receiveSleepPending();
     fetchGetSleep(userId, today, today, false, sleep => {
-      console.log(sleep);
+      console.log(sleep[0]);
+      getLatelySleep(sleep[0]);
     });
   };
 
   useEffect(() => {
     if (user.email) {
-      getGoogleFitData(user._id, () => {
-        getTodaySleep(user._id);
+      getGoogleFitData(sleepResponse => {
+        postSleeps(user._id, sleepResponse, () => {
+          getTodaySleep(user._id);
+        });
       });
     }
   });
@@ -60,6 +68,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
+  getLatelySleep(sleep) {
+    dispatch(actions.receiveSleepSuccess(sleep));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

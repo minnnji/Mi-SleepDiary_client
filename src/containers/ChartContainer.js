@@ -4,7 +4,7 @@ import moment from 'moment';
 import Chart from '../components/Chart/Chart';
 import { fetchGetSleep } from '../lib/api/sleep';
 
-moment.lang('ko', {
+moment.locale('ko', {
   weekdaysShort: ['일', '월', '화', '수', '목', '금', '토']
 });
 

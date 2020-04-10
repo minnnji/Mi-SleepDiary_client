@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import dotenv from 'dotenv';
 import { GoogleLogin } from 'react-google-login';
-import login from '../actions/auth';
+import { login } from '../actions/index';
 
 dotenv.config();
 

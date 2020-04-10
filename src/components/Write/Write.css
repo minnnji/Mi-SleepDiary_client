@@ -46,10 +46,16 @@
   margin-left: 1em;
   display: inline-block;
   border: 1px solid gray;
-  width: 35%;
+  border-radius: 5px;
+  background-color: white;
+  width: 37%;
   height: 2em;
   vertical-align: middle;
   font-size: 1em;
+}
+
+.subText {
+  color: rgb(180, 180, 180);
 }
 
 textarea {

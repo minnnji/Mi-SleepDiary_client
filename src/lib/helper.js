@@ -8,7 +8,7 @@ function getDiff(startTime, endTime) {
   return moment.duration(endTime.diff(startTime));
 }
 
-const setDailySleep = fullSleepList => {
+export const setDailySleep = fullSleepList => {
   const firstSleep = getTimes(fullSleepList[0].startTimeNanos);
   const dailySleepList = [];
   let endDay = moment(firstSleep).hour() < 21 ? new Date(firstSleep).setHours(15, 0, 0, 0)
@@ -76,4 +76,9 @@ const setDailySleep = fullSleepList => {
   return spliceCurrentDay();
 };
 
-export default setDailySleep;
+export const sleepForDiary = sleep => ({
+  createdAt: sleep.created_at,
+  wakeUpTime: sleep.wakeUp_time,
+  bedTime: sleep.bedTime,
+  hasDiary: sleep.hasDiary
+});

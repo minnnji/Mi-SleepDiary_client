@@ -10,6 +10,12 @@ const Home = props => {
         {user.name}
         님 Hi
       </Link>
+      <Link to="/chart">
+        차트로 가기
+      </Link>
+      <Link to="/write">
+        작성하기
+      </Link>
     </div>
   );
 };

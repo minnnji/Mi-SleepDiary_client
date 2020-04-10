@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as actions from '../../actions/index';
 
 export const fetchPostSleep = async (userId, sleepList, cb) => {
   try {

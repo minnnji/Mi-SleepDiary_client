@@ -17,7 +17,7 @@ const AppContainer = ({ setUser }) => {
       console.log(`token 만료!!!! ${new Date(decodedProfile.exp * 1000)}`);
 
       setHeader(token);
-      setUser(profile);
+      // setUser(profile);
       if (!isValid) localStorage.clear();
     } catch (err) {
       console.log(err);
