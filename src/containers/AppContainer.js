@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { setHeader } from '../lib/auth';
-import { postUser } from '../lib/api/user';
+import { fetchPostUser } from '../lib/api/user';
 import { SET_CURRENT_USER } from '../constants/actionTypes';
 import App from '../components/App/App';
 
@@ -22,7 +22,7 @@ const AppContainer = ({ setCurrentUser }) => {
       }
 
       setHeader(token);
-      postUser(profile, user => {
+      fetchPostUser(profile, user => {
         setCurrentUser(user);
       });
     } catch (err) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const postDiary = async (userId, diary, cb) => {
+const fetchPostDiary = async (userId, diary, cb) => {
   try {
     const diaryResponse = await axios({
       method: 'post',
@@ -14,4 +14,4 @@ const postDiary = async (userId, diary, cb) => {
   }
 };
 
-export default postDiary;
+export default fetchPostDiary;

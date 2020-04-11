@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchPostSleep = async (userId, sleepList, cb) => {
+export const fetchPostSleep = async (userId, sleepList) => {
   try {
     const sleepResponse = await axios({
       method: 'post',
@@ -8,7 +8,7 @@ export const fetchPostSleep = async (userId, sleepList, cb) => {
       data: sleepList
     });
     const response = await sleepResponse.data;
-    cb(response);
+    return response;
   } catch (error) {
     console.log(error);
   }

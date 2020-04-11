@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Write from '../components/Write/Write';
-import postDiary from '../lib/api/diary';
+import fetchPostDiary from '../lib/api/diary';
+import { fetchUpdateUserInfo } from '../lib/api/user';
 
 const WriteContainer = props => {
   const { user, latelySleep } = props;
+  const userId = user._id;
   const [sleep, setSleep] = useState(latelySleep);
 
-  const saveDiary = diary => postDiary(user._id, diary, result => {
-    console.log(result);
+  const saveDiary = content => fetchPostDiary(userId, content, diary => {
+    const { date, _id } = diary;
+    const reqBody = {};
+    reqBody[date] = _id;
+    fetchUpdateUserInfo(userId, { my_diaries: reqBody });
   });
 
   return (

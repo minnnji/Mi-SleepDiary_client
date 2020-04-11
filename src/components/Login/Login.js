@@ -2,7 +2,7 @@ import React from 'react';
 import dotenv from 'dotenv';
 import { GoogleLogin } from 'react-google-login';
 import { setHeader } from '../../lib/auth';
-import { postUser } from '../../lib/api/user';
+import { fetchPostUser } from '../../lib/api/user';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ const Login = props => {
     localStorage.setItem('accessToken', accessToken);
 
     setHeader(accessToken);
-    postUser(profileObj, user => {
+    fetchPostUser(profileObj, user => {
       setCurrentUser(user);
     });
     cb();
