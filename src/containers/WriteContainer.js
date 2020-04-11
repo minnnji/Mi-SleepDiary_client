@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Write from '../components/Write/Write';
-import { sleepForDiary } from '../lib/helper';
+import postDiary from '../lib/api/diary';
 
 const WriteContainer = props => {
   const { user, latelySleep } = props;
+  const [sleep, setSleep] = useState(latelySleep);
 
-  const [sleep, setSleep] = useState(sleepForDiary(latelySleep));
-  const handleDiaryDate = date => {
-
-  };
+  const saveDiary = diary => postDiary(user._id, diary, result => {
+    console.log(result);
+  });
 
   return (
-    <Write user={user} sleep={sleep} />
+    <Write
+      sleep={sleep}
+      saveDiary={saveDiary}
+    />
   );
 };
 

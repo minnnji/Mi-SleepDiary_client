@@ -1,35 +1,55 @@
 import React, { useState, useRef } from 'react';
+import moment from 'moment';
 import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import '../App/App.css';
 import './Write.css';
 
 const Write = props => {
-  const { user, sleep } = props;
+  const { sleep, saveDiary } = props;
+  const { createdAt, wakeUpTime, bedTime, sleepDuration, _id } = sleep;
 
-  console.log(user);
-  const [date, setDate] = useState('어젯 밤'),
-    [duration, setDuration] = useState('23:00 ~ 07:30'),
-    [hours, setHours] = useState('8시간'),
+  const sleepDurationList = sleepDuration.split(':');
+  const durationHours = sleepDurationList[1] >= 30 ? `${sleepDurationList[0]}.5` : sleepDurationList[0];
+
+  const initialState = {
+    date: moment(createdAt).format('YYYY.MM.DD'),
+    hours: `${durationHours}시간`,
+    bedTime: moment(bedTime).format('HH:mm'),
+    wakeUpTime: moment(wakeUpTime).format('HH:mm'),
+    sleep: _id
+  };
+
+  const [date, setDate] = useState(initialState.date),
+    [duration, setDuration] = useState(`${initialState.bedTime}~${initialState.wakeUpTime}`),
+    [hours, setHours] = useState(initialState.hours),
     [score, setScore] = useState('점수 선택하기 ▾'),
     [reason, setReason] = useState(''),
     [color, setColor] = useState(''),
-    [memo, setMemo] = useState(''),
+    [memo, setMemo] = useState('');
+
+  const options = [],
     colors = [['#F1F1B3', '노랑'], ['#BDE4D7', '초록'], ['#D8DCEB', '보라'], ['#EFC7D6', '빨강'], ['#CCE2EE', '파랑']];
 
-  const options = [];
   for (let i = 1; i < 11; i++) {
     options.push(<option key={i} value={i}>
       {i}
       점
     </option>);
   }
+
   const handleSubmit = e => {
     e.preventDefault();
-    const reqBody = {
-      // author: props.user._id,
-      // created_at:
+    const contents = {
+      date: new Date(date),
+      sleepHours: hours,
+      behaviorScore: score,
+      behaviorScoreReason: reason,
+      feelingColor: color,
+      memo,
+      sleep: sleep._id
     };
+    saveDiary(contents);
   };
 
   return (

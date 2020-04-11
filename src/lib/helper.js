@@ -76,9 +76,16 @@ export const setDailySleep = fullSleepList => {
   return spliceCurrentDay();
 };
 
-export const sleepForDiary = sleep => ({
+export const sleepToCamelCase = sleep => ({
+  user: sleep.user,
   createdAt: sleep.created_at,
-  wakeUpTime: sleep.wakeUp_time,
+  sleepDuration: sleep.sleep_duration,
   bedTime: sleep.bedTime,
-  hasDiary: sleep.hasDiary
+  wakeUpTime: sleep.wakeUp_time,
+  deepSleepSeconds: sleep.deep_sleep_seconds,
+  lightSleepSeconds: sleep.light_sleep_seconds,
+  deepSleepPercentage: sleep.deep_sleep_percentage,
+  lightSleepPercentage: sleep.light_sleep_percentage,
+  hasDiary: sleep.hasDiary,
+  _id: sleep._id
 });

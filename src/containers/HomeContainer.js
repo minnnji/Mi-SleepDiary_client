@@ -40,7 +40,6 @@ const HomeContainer = props => {
     const today = new Date();
     actions.receiveSleepPending();
     fetchGetSleep(userId, today, today, false, sleep => {
-      console.log(sleep[0]);
       getLatelySleep(sleep[0]);
     });
   };
