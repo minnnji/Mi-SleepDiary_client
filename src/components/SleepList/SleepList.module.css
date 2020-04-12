@@ -1,0 +1,33 @@
+.list {
+  margin: 30px 18px 30px 18px;
+  line-height: 15px;
+}
+
+.card {
+  width: 100%;
+  background-color: #37334a;
+}
+
+.left {
+  display: inline-block;
+  margin: 0 1em;
+  vertical-align: middle;
+}
+
+.score {
+  margin: .3em;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.color {
+  padding: 1.5em;
+  border-radius: 2em;
+  background-color: wheat;
+}
+
+.right {
+  display: inline-block;
+  margin: 10px 0;
+  vertical-align: middle;
+}

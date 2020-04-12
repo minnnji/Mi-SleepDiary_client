@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Write from '../components/Write/Write';
 import fetchPostDiary from '../lib/api/diary';
 import { fetchUpdateUserInfo } from '../lib/api/user';
+import { fetchUpdateSleepInfo } from '../lib/api/sleep';
 
 const WriteContainer = props => {
   const { user, latelySleep } = props;
@@ -14,6 +15,7 @@ const WriteContainer = props => {
     const reqBody = {};
     reqBody[date] = _id;
     fetchUpdateUserInfo(userId, { my_diaries: reqBody });
+    fetchUpdateSleepInfo(userId, sleep._id, { diary: _id });
   });
 
   return (

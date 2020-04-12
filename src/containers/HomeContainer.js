@@ -52,7 +52,7 @@ const HomeContainer = props => {
         });
       });
     }
-  });
+  }, []);
 
   return (
     <Home user={user} />

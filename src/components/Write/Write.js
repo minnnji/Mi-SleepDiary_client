@@ -35,7 +35,7 @@ const Write = props => {
     options.push(<option key={i} value={i}>
       {i}
       점
-    </option>);
+                 </option>);
   }
 
   const handleSubmit = e => {
@@ -54,7 +54,7 @@ const Write = props => {
 
   return (
     <>
-      <Header />
+      <Header backButton />
       <main>
         <section className="sleepInfo">
           <div className="date">{date}</div>
@@ -114,7 +114,7 @@ const Write = props => {
           </form>
         </div>
       </main>
-      <BottomNavigation />
+      {/* <BottomNavigation /> */}
     </>
   );
 };

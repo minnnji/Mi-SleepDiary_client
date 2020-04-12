@@ -1,5 +1,6 @@
 import React from 'react';
 import WeeklyPercentageChart from './WeeklyPercentageChart';
+import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import '../App/App.css';
 import './Chart.css';
@@ -11,6 +12,7 @@ const Chart = props => {
 
   return (
     <>
+      <Header />
       <WeeklyPercentageChart sleepList={weeklyPatternList} keys={keys} colors={colors} />
       <BottomNavigation />
     </>

@@ -12,8 +12,8 @@ const BottomNavigation = props => (
       <Link to="/write">
         <li>작성하기</li>
       </Link>
-      <Link to="/">
-        <li>캘린더</li>
+      <Link to="/list">
+        <li>리스트</li>
       </Link>
       <Link to="/chart">
         <li>차트</li>

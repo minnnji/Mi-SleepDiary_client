@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 
 const Home = props => {
@@ -6,6 +7,7 @@ const Home = props => {
 
   return (
     <div>
+      <Header />
       <BottomNavigation />
     </div>
   );
