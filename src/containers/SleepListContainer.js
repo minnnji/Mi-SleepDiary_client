@@ -13,8 +13,10 @@ const SleepListContainer = props => {
   }
 
   useEffect(() => {
-    onLoad();
-  }, []);
+    if (user._id) {
+      onLoad();
+    }
+  }, [user._id]);
 
   return (
     <SleepList sleepList={sleepList} />

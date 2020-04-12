@@ -21,7 +21,6 @@ export const fetchGetAllSleep = async userId => {
       url: `http://localhost:4000/api/users/${userId}/sleeps`
     });
     const response = await sleepResponse.data;
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

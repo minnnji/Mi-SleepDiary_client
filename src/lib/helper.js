@@ -86,5 +86,6 @@ export const sleepToCamelCase = sleep => ({
   lightSleepSeconds: sleep.light_sleep_seconds,
   deepSleepPercentage: sleep.deep_sleep_percentage,
   lightSleepPercentage: sleep.light_sleep_percentage,
-  _id: sleep._id
+  _id: sleep._id,
+  diary: sleep.diary
 });
