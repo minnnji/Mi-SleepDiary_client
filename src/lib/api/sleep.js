@@ -42,6 +42,19 @@ export const fetchGetSleep = async (userId, startDate, endDate, allowEmptyValue,
   }
 };
 
+export const fetchGetSleepById = async (userId, sleepId) => {
+  try {
+    const sleepResponse = await axios({
+      method: 'get',
+      url: `http://localhost:4000/api/users/${userId}/sleeps/${sleepId}`
+    });
+    const response = await sleepResponse.data;
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const fetchUpdateSleepInfo = async (userId, sleepId, updateInfo) => {
   try {
     const response = await axios({

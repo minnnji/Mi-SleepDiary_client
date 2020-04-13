@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import moment from 'moment';
 import Header from '../Header/Header';
-import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import '../App/App.css';
 import './Write.css';
 
@@ -114,7 +113,6 @@ const Write = props => {
           </form>
         </div>
       </main>
-      {/* <BottomNavigation /> */}
     </>
   );
 };

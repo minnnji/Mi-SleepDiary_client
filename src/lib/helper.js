@@ -89,3 +89,16 @@ export const sleepToCamelCase = sleep => ({
   _id: sleep._id,
   diary: sleep.diary
 });
+
+export const diaryToCamelCase = diary => ({
+  feelingColor: diary.feeling_color,
+  author: diary.author,
+  date: diary.date,
+  sleepHours: diary.sleep_hours,
+  behaviorScore: diary.behavior_score,
+  behaviorScoreReason: diary.behavior_score_reason,
+  memo: diary.memo,
+  sleep: diary.sleep,
+  createdAt: diary.createdAt,
+  updatedAt: diary.updatedAt
+});

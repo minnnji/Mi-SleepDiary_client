@@ -14,19 +14,21 @@ header h1 {
 }
 
 .button-back {
-  vertical-align: middle;
   position: absolute;
+  vertical-align: middle;
   width: 40px;
   height: 40px;
-  left: 15px;
   top: 12px;
+  left: 15px;
+  font-size: 1.7em;
 }
 
 .button-menu {
+  position: absolute;
   vertical-align: middle;
   width: 40px;
   height: 40px;
-  position: absolute;
-    right: 15px;
-    top: 12px;
+  top: 12px;
+  right: 15px;
+  font-size: 1.7em;
 }

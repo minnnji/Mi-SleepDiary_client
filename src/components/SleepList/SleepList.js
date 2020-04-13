@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
@@ -20,6 +21,7 @@ const SleepList = props => {
 
     const date = moment(created_at).format('YYYY.MM.DD');
     const duration = `(${moment(bedTime).format('HH:mm')}~${moment(wakeUp_time).format('HH:mm')})`;
+    const link = `/detail?sleepId=${_id}`;
     let reason = '작성한 일기가 없습니다.';
     let behaviorScore = '- 점';
     let color = 'gray';
@@ -34,28 +36,30 @@ const SleepList = props => {
     const hours = sleepDurationList[1] >= 30 ? `${sleepDurationList[0]}.5시간` : `${sleepDurationList[0]}시간`;
 
     return (
-      <div key={_id} className={styles.card}>
-        <div className={styles.left}>
-          <div className={styles.color} style={{ backgroundColor: color }} />
-          <div className={styles.score}>
-            {behaviorScore}
+      <Link key={_id} to={link}>
+        <div className={styles.card}>
+          <div className={styles.left}>
+            <div className={styles.color} style={{ backgroundColor: color }} />
+            <div className={styles.score}>
+              {behaviorScore}
+            </div>
+          </div>
+          <div className={styles.right}>
+            <h3>
+              {date}
+            </h3>
+            <span className={styles.hours}>
+              {hours}
+            </span>
+            <span className={styles.duration}>
+              {duration}
+            </span>
+            <p className={styles.reason}>
+              {reason}
+            </p>
           </div>
         </div>
-        <div className={styles.right}>
-          <h3>
-            {date}
-          </h3>
-          <span className={styles.hours}>
-            {hours}
-          </span>
-          <span className={styles.duration}>
-            {duration}
-          </span>
-          <p className={styles.reason}>
-            {reason}
-          </p>
-        </div>
-      </div>
+      </Link>
     );
   });
 

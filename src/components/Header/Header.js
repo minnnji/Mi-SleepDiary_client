@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MdArrowBack, MdMenu } from 'react-icons/md';
 import '../App/App.css';
 import './Header.css';
 
@@ -8,9 +9,9 @@ const Header = props => {
 
   return (
     <header>
-      {backButton && <Link to="/"><span className="button-back">back</span></Link>}
+      {backButton && <Link to="/"><span className="button-back"><MdArrowBack /></span></Link>}
       <h1>kkuljam</h1>
-      <Link to="/"><span className="button-menu">menu</span></Link>
+      <Link to="/"><span className="button-menu"><MdMenu /></span></Link>
     </header>
   );
 };
