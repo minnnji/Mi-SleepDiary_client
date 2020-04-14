@@ -14,7 +14,7 @@ const WriteContainer = props => {
     const { date, _id } = diary;
     const reqBody = {};
     reqBody[date] = _id;
-    fetchUpdateUserInfo(userId, { my_diaries: reqBody });
+    fetchUpdateUserInfo(userId, { myDiaries: reqBody });
     fetchUpdateSleepInfo(userId, sleep._id, { diary: _id });
   });
 

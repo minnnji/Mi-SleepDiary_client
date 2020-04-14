@@ -8,7 +8,7 @@ function getDiff(startTime, endTime) {
   return moment.duration(endTime.diff(startTime));
 }
 
-export const setDailySleep = fullSleepList => {
+const setDailySleep = fullSleepList => {
   const firstSleep = getTimes(fullSleepList[0].startTimeNanos);
   const dailySleepList = [];
   let endDay = moment(firstSleep).hour() < 21 ? new Date(firstSleep).setHours(15, 0, 0, 0)
@@ -29,7 +29,7 @@ export const setDailySleep = fullSleepList => {
       }
     }
     if (!currentDaySleepList.length) currentDaySleepList = fullSleepList.splice(0, length);
-
+    console.log(currentDaySleepList);
     return makeDailySleep(currentDaySleepList);
   }
 
@@ -76,29 +76,4 @@ export const setDailySleep = fullSleepList => {
   return spliceCurrentDay();
 };
 
-export const sleepToCamelCase = sleep => ({
-  user: sleep.user,
-  createdAt: sleep.created_at,
-  sleepDuration: sleep.sleep_duration,
-  bedTime: sleep.bedTime,
-  wakeUpTime: sleep.wakeUp_time,
-  deepSleepSeconds: sleep.deep_sleep_seconds,
-  lightSleepSeconds: sleep.light_sleep_seconds,
-  deepSleepPercentage: sleep.deep_sleep_percentage,
-  lightSleepPercentage: sleep.light_sleep_percentage,
-  _id: sleep._id,
-  diary: sleep.diary
-});
-
-export const diaryToCamelCase = diary => ({
-  feelingColor: diary.feeling_color,
-  author: diary.author,
-  date: diary.date,
-  sleepHours: diary.sleep_hours,
-  behaviorScore: diary.behavior_score,
-  behaviorScoreReason: diary.behavior_score_reason,
-  memo: diary.memo,
-  sleep: diary.sleep,
-  createdAt: diary.createdAt,
-  updatedAt: diary.updatedAt
-});
+export default setDailySleep;

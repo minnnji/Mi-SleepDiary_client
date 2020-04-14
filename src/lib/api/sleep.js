@@ -28,14 +28,12 @@ export const fetchGetAllSleep = async userId => {
 };
 
 export const fetchGetSleep = async (userId, startDate, endDate, allowEmptyValue, cb) => {
-  console.log(startDate);
   try {
     const sleepResponse = await axios({
       method: 'get',
       url: `http://localhost:4000/api/users/${userId}/sleeps?startDate=${startDate}&endDate=${endDate}&allowEmptyValue=${allowEmptyValue}`
     });
     const response = await sleepResponse.data;
-    console.log(response);
     cb(response);
   } catch (error) {
     console.log(error);

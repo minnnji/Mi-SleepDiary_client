@@ -9,7 +9,7 @@ const WeeklyPercentageChart = props => {
 
   useEffect(() => {
     const margin = { top: 10, right: 30, bottom: 20, left: 50 },
-      width = 460,
+      width = 380,
       height = 400;
 
     const svg = d3.select(svgRef.current)
@@ -87,7 +87,7 @@ const WeeklyPercentageChart = props => {
       .attr('x', d => x(d.data.day) + x.bandwidth() / 2)
       .attr('y', 350)
       .text(d => `${d.data.deepSleepPercentage}%`);
-  }, [colors, data, keys]);
+  }, []);
 
   return (
     <div ref={svgRef} />

@@ -2,11 +2,11 @@ import React from 'react';
 import moment from 'moment';
 import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
-import { sleepToCamelCase, diaryToCamelCase } from '../../lib/helper';
+import DailyPatternChart from '../Chart/DailyPatternChart';
 import styles from './Detail.module.css';
 
 const DetailHeader = ({ detail }) => {
-  const { createdAt, wakeUpTime, bedTime, sleepDuration } = sleepToCamelCase(detail);
+  const { createdAt, wakeUpTime, bedTime, sleepDuration } = detail;
 
   const sleepDurationList = sleepDuration.split(':');
   const durationHours = sleepDurationList[1] >= 30 ? `${sleepDurationList[0]}.5` : sleepDurationList[0];
@@ -25,7 +25,7 @@ const DetailHeader = ({ detail }) => {
 };
 
 const DetailDiary = ({ detail }) => {
-  const { behaviorScore, feelingColor, behaviorScoreReason, memo } = diaryToCamelCase(detail);
+  const { behaviorScore, feelingColor, behaviorScoreReason, memo } = detail;
   return (
     <div className="diary">
       <div>
@@ -76,6 +76,7 @@ export default function Detail(props) {
       {!isLoading && (
         <main>
           <DetailHeader detail={sleep} />
+          <DailyPatternChart sleep={sleep.sleepCycle} />
           <div className={styles.contents}>
             {diary && <DetailDiary detail={diary} />}
           </div>

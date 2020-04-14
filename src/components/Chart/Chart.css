@@ -1,3 +1,18 @@
 .text-deepPercent {
   fill: white;
 }
+
+.text-duration-hours,
+.text-duration-minutes {
+fill: rgb(88, 230, 255);
+}
+
+.dailyChart {
+  float: right;
+}
+
+.tooltip {
+  float: right;
+  width: 100px;
+  color: #000;
+}

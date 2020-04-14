@@ -7,11 +7,32 @@ import { fetchGetSleepById } from '../lib/api/sleep';
 const DetailContainer = props => {
   const { location, user } = props;
   const { sleepId } = queryString.parse(location.search);
-  const [sleep, setSleep] = useState({});
+  const [sleepDetail, setSleepDetail] = useState({});
+
+  const getSleepForDailyChart = sleepList => {
+    console.log(sleepList);
+    const latestSleep = sleepList;
+    const { sleepCycle } = latestSleep;
+    const sleepCycleForChart = [];
+    const sleep = {};
+
+    for (let i = 0; i < sleepCycle.length; i++) {
+      const startTime = sleepCycle[i][0];
+      const sleepType = sleepCycle[i][2];
+
+      sleep[sleepType + i] = startTime;
+    }
+    sleepCycleForChart.push(sleep);
+
+    setSleepDetail({
+      ...latestSleep,
+      sleepCycle: sleepCycleForChart
+    });
+  };
 
   const onLoad = async () => {
     const resSleep = await fetchGetSleepById(user._id, sleepId);
-    return setSleep(resSleep);
+    getSleepForDailyChart(resSleep);
   };
 
   useEffect(() => {
@@ -21,7 +42,7 @@ const DetailContainer = props => {
   }, [user._id]);
 
   return (
-    <Detail sleep={sleep} />
+    <Detail sleep={sleepDetail} />
   );
 };
 

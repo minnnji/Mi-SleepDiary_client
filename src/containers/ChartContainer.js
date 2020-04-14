@@ -19,16 +19,21 @@ const ChartContainer = props => {
 
       fetchGetSleep(user._id, sevenDaysAgo, today, true, sleepList => {
         setWeeklyPatternList(sleepList.map(sleep => {
-          const { created_at, sleep_duration, deep_sleep_seconds, light_sleep_seconds, deep_sleep_percentage } = sleep;
-          const sleepDurationList = sleep_duration.split(':');
+          const { createdAt,
+            sleepDuration,
+            deepSleepSeconds,
+            lightSleepSeconds,
+            deepSleepPercentage
+          } = sleep;
+          const sleepDurationList = sleepDuration.split(':');
           const list = {
-            created_at,
-            day: moment(created_at).format('ddd'),
+            createdAt,
+            day: moment(createdAt).format('ddd'),
             durationHours: `${sleepDurationList[0]}시간`,
             durationMinutes: `${sleepDurationList[1]}분`,
-            deep: deep_sleep_seconds / 100000,
-            light: light_sleep_seconds / 100000,
-            deepSleepPercentage: deep_sleep_percentage
+            deep: deepSleepSeconds / 100000,
+            light: lightSleepSeconds / 100000,
+            deepSleepPercentage
           };
 
           return list;
@@ -39,7 +44,14 @@ const ChartContainer = props => {
 
   return (
     <>
-      {weeklyPatternList.length ? <Chart user={user} weeklyPatternList={weeklyPatternList} /> : <div>no Data!</div> }
+      {weeklyPatternList.length
+        ? (
+          <Chart
+            user={user}
+            weeklyPatternList={weeklyPatternList}
+          />
+        )
+        : <div>Loading!</div>}
     </>
   );
 };
