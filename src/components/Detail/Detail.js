@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
@@ -27,7 +28,7 @@ const DetailHeader = ({ detail }) => {
 const DetailDiary = ({ detail }) => {
   const { behaviorScore, feelingColor, behaviorScoreReason, memo } = detail;
   return (
-    <div className="diary">
+    <>
       <div>
         <h2 className={styles.title}>
           오늘 나의 말, 행동을
@@ -59,13 +60,14 @@ const DetailDiary = ({ detail }) => {
           <div className={styles.subText}>{memo}</div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
 export default function Detail(props) {
   const { sleep } = props;
   const isLoading = Object.keys(sleep).length === 0;
+  const link = `/write?sleepId=${sleep._id}`;
   let diary;
   if (sleep) diary = sleep.diary;
 
@@ -76,9 +78,17 @@ export default function Detail(props) {
       {!isLoading && (
         <main>
           <DetailHeader detail={sleep} />
-          <DailyPatternChart sleep={sleep.sleepCycle} />
-          <div className={styles.contents}>
-            {diary && <DetailDiary detail={diary} />}
+          <div className={styles.background}>
+            <div className={styles.contents}>
+              <DailyPatternChart sleep={sleep.sleepCycle} />
+              {diary && <DetailDiary detail={diary} />}
+              {!diary
+                && (
+                  <Link to={link}>
+                    <div className="button fill">나의 하루 기록하기</div>
+                  </Link>
+                )}
+            </div>
           </div>
         </main>
       )}

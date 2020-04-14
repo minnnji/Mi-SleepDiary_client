@@ -10,46 +10,28 @@ const WeeklyPercentageChart = props => {
   useEffect(() => {
     if (sleep) {
       const margin = { top: 10, right: 30, bottom: 20, left: 10 },
-        width = 80,
-        height = 450;
+        width = 60,
+        height = 400;
 
       const svg = d3.select(svgRef.current)
         .append('svg')
         .attr('class', 'dailyChart')
         .attr('width', width)
         .attr('height', height)
-        .append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
+        .append('g');
 
       const Tooltip = d3.select(svgRef.current)
         .append('div')
         .style('opacity', 0)
-        .attr('class', 'tooltip')
-        .style('padding', '5px')
-        .style('background-color', 'white')
-        .style('border-width', '2px')
-        .style('border-radius', '5px');
+        .attr('class', 'tooltip');
 
       const stackGenerator = d3.stack().keys(Object.keys(sleep[0])),
         sleepsByType = stackGenerator(sleep),
         maxRange = [0, d3.max(sleepsByType, sleeps => d3.max(sleeps, sequence => sequence[1]))];
 
-      const x = d3.scaleBand()
-        .range([0, width - margin.left - margin.right])
-        .padding([0.3]);
-
       const y = d3.scaleLinear()
         .domain(maxRange)
         .range([height - margin.top - margin.bottom, 0]);
-
-      const mouseover = function (d) {
-        Tooltip
-          .html(`The exact value of<br>this cell is: ${d}`)
-          .style('opacity', 0);
-        d3.select(this)
-          .style('stroke', 'black')
-          .style('opacity', 1);
-      };
 
       const bars = svg.append('g')
         .selectAll('g')
@@ -65,7 +47,7 @@ const WeeklyPercentageChart = props => {
         .append('rect')
         .attr('y', d => y(d[1]))
         .attr('x', d => (width - margin.top - margin.bottom) / 2 - 20)
-        .attr('width', 40)
+        .attr('width', 60)
         .attr('height', 0)
         .on('mouseover', function (d) {
           d3.select(this).transition()

@@ -9,7 +9,7 @@ const WeeklyPercentageChart = props => {
 
   useEffect(() => {
     const margin = { top: 10, right: 30, bottom: 20, left: 50 },
-      width = 380,
+      width = 370,
       height = 400;
 
     const svg = d3.select(svgRef.current)

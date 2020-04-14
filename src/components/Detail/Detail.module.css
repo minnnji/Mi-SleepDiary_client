@@ -3,13 +3,17 @@
   background-size: 100% 740px;
 }
 
-.contents {
+.background {
   margin: 0 0 55px 0;
   padding-top: 20px;
   min-height: 400px;
   line-height: 32px;
   background-color: #f5f5f5;
   color: #333333;
+}
+
+.contents {
+  margin: 0 18px;
 }
 
 .title {

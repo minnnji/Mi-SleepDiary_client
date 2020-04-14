@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import Write from '../components/Write/Write';
 import fetchPostDiary from '../lib/api/diary';
 import { fetchUpdateUserInfo } from '../lib/api/user';
-import { fetchUpdateSleepInfo } from '../lib/api/sleep';
+import { fetchUpdateSleepInfo, fetchGetSleepById } from '../lib/api/sleep';
 
 const WriteContainer = props => {
-  const { user, latelySleep } = props;
+  const { location, user, latelySleep } = props;
+  const { sleepId } = queryString.parse(location.search);
   const userId = user._id;
-  const [sleep, setSleep] = useState(latelySleep);
+
+  const [sleep, setSleep] = useState({});
+
+  const getSleepById = async () => {
+    const currentSleep = await fetchGetSleepById(userId, sleepId);
+    return setSleep(currentSleep);
+  };
+
+  useEffect(() => {
+    if (userId && sleepId) {
+      getSleepById();
+    } else {
+      setSleep(latelySleep);
+    }
+  }, [userId]);
 
   const saveDiary = content => fetchPostDiary(userId, content, diary => {
     const { date, _id } = diary;
@@ -19,10 +35,15 @@ const WriteContainer = props => {
   });
 
   return (
-    <Write
-      sleep={sleep}
-      saveDiary={saveDiary}
-    />
+    <>
+      {!Object.keys(sleep).length && <div>Loading!</div>}
+      {Object.keys(sleep).length && (
+        <Write
+          sleep={sleep}
+          saveDiary={saveDiary}
+        />
+      )}
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ header {
 header h1 {
   position: relative;
   margin: 0 auto;
+  padding-top: .8em;
   width: 120px;
   height: 55px;
   vertical-align: middle;
