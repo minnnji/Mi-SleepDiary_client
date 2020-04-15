@@ -14,9 +14,9 @@ const HomeContainer = props => {
   const getGoogleFitData = async cb => {
     const lastUpdate = user.sleepLastUpdatedAt;
 
-    requestBody.startTimeMillis = lastUpdate ? new Date(lastUpdate).setHours(21, 0, 0, 0)
-      : new Date().setHours(-(24 * 14) + 21, 0, 0, 0);
-    requestBody.endTimeMillis = new Date().setHours(15, 0, 0, 0);
+    requestBody.startTimeMillis = lastUpdate ? new Date(lastUpdate).setHours(18, 0, 0, 0)
+      : new Date().setHours(-(24 * 14) + 18, 0, 0, 0);
+    requestBody.endTimeMillis = new Date().setHours(18, 0, 0, 0);
     const sleepResponse = await requestGoogleFitApi(requestBody);
 
     cb(sleepResponse);
@@ -24,6 +24,7 @@ const HomeContainer = props => {
 
   const postSleeps = async (userId, sleepResponse, cb) => {
     if (!sleepResponse) return cb();
+    if (!sleepResponse.data.bucket.length) return cb();
 
     const sleepList = sleepResponse.data.bucket[0].dataset[0].point;
     if (!sleepList.length) return cb();

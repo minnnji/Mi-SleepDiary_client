@@ -10,7 +10,7 @@ const WeeklyPercentageChart = props => {
   useEffect(() => {
     if (sleep) {
       const margin = { top: 10, right: 30, bottom: 20, left: 10 },
-        width = 60,
+        width = 100,
         height = 400;
 
       const svg = d3.select(svgRef.current)
@@ -39,7 +39,7 @@ const WeeklyPercentageChart = props => {
         .enter();
 
       const barByType = bars.append('g')
-        .attr('fill', (d, i) => (i % 2 ? '#471FB3' : '#C597E8'));
+        .attr('fill', (d, i) => (i % 2 ? '#371E38' : '#C597E8'));
 
       barByType.selectAll('rect')
         .data(d => d)
@@ -57,8 +57,8 @@ const WeeklyPercentageChart = props => {
             .duration(800)
             .style('opacity', 1);
           Tooltip.html(`${new Date(d[1] - d[0]).getHours()}시 ${new Date(d[1] - d[0]).getMinutes()}분 ~`)
-            .style('left', `${d3.event.pageX + 10}px`)
-            .style('top', `${d3.event.pageY - 15}px`);
+            .style('left', `${d3.event.pageX - 10}px`)
+            .style('top', `${d3.event.pageY - 310}px`);
         })
         .on('mouseout', function () {
           d3.select(this).transition()
@@ -76,7 +76,7 @@ const WeeklyPercentageChart = props => {
   }, [sleep]);
 
   return (
-    <div ref={svgRef} />
+    <div className="dailyWrapper" ref={svgRef} />
   );
 };
 

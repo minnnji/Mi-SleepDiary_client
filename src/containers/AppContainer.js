@@ -36,14 +36,10 @@ const AppContainer = ({ setCurrentUser }) => {
   );
 };
 
-const mapStateToProps = state => {
-
-};
-
 const mapDispatchToProps = dispatch => ({
   setCurrentUser(user) {
     dispatch({ type: SET_CURRENT_USER, payload: user });
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(null, mapDispatchToProps)(AppContainer);

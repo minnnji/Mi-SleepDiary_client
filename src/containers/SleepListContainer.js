@@ -16,7 +16,7 @@ const SleepListContainer = props => {
     if (user._id) {
       onLoad();
     }
-  }, [user._id]);
+  }, [user._id, onLoad]);
 
   return (
     <SleepList sleepList={sleepList} />
@@ -30,8 +30,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SleepListContainer);
+export default connect(mapStateToProps)(SleepListContainer);

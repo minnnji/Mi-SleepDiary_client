@@ -10,7 +10,7 @@ const Header = props => {
   return (
     <header>
       {backButton && <Link to="/"><span className="button-back"><MdArrowBack /></span></Link>}
-      <h1>kkuljam</h1>
+      <h1>Mi Sleep Diary</h1>
       <Link to="/"><span className="button-menu"><MdMenu /></span></Link>
     </header>
   );

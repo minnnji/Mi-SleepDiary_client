@@ -10,7 +10,6 @@ const DetailContainer = props => {
   const [sleepDetail, setSleepDetail] = useState({});
 
   const getSleepForDailyChart = sleepList => {
-    console.log(sleepList);
     const latestSleep = sleepList;
     const { sleepCycle } = latestSleep;
     const sleepCycleForChart = [];
@@ -28,6 +27,7 @@ const DetailContainer = props => {
       ...latestSleep,
       sleepCycle: sleepCycleForChart
     });
+    console.log(sleepCycleForChart);
   };
 
   const onLoad = async () => {

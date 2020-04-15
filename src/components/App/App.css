@@ -21,22 +21,24 @@ h1 {
 
 .button {
   margin: 1.5em 0;
-  padding-top: .8em;
   width: 100%;
   height: 3.5em;
   border-radius: 0.5em;
   font-size: 1em;
+  line-height: 3.5em;
   font-weight: 500;
   text-align: center;
 }
 
 .fill {
-  background-color: #26182E;
+  background-color: #3B2E53;
   color: white;
 }
 
-.line {
-  background-color: white;
-  border: 1em solid #26182E;
-  color: #26182E;
+.pointText {
+  color: #F2D788;
+}
+
+.subText {
+  color: rgb(180, 180, 180);
 }

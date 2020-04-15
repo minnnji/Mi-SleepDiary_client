@@ -11,8 +11,8 @@ function getDiff(startTime, endTime) {
 const setDailySleep = fullSleepList => {
   const firstSleep = getTimes(fullSleepList[0].startTimeNanos);
   const dailySleepList = [];
-  let endDay = moment(firstSleep).hour() < 21 ? new Date(firstSleep).setHours(15, 0, 0, 0)
-    : new Date(firstSleep).setHours(15 + 24, 0, 0, 0);
+  let endDay = moment(firstSleep).hour() < 18 ? new Date(firstSleep).setHours(18, 0, 0, 0)
+    : new Date(firstSleep).setHours(18 + 24, 0, 0, 0);
 
   function spliceCurrentDay() {
     const { length } = fullSleepList;
@@ -21,15 +21,13 @@ const setDailySleep = fullSleepList => {
     for (let i = 0; i < fullSleepList.length; i++) {
       const startTime = getTimes(fullSleepList[i].startTimeNanos);
       if (startTime > endDay) {
-        endDay = moment(startTime).hour() < 21 ? new Date(startTime).setHours(15, 0, 0, 0)
-          : new Date(startTime).setHours(15 + 24, 0, 0, 0);
+        endDay = moment(startTime).hour() < 18 ? new Date(startTime).setHours(18, 0, 0, 0)
+          : new Date(startTime).setHours(18 + 24, 0, 0, 0);
         currentDaySleepList = fullSleepList.splice(0, i);
-
         return makeDailySleep(currentDaySleepList);
       }
     }
     if (!currentDaySleepList.length) currentDaySleepList = fullSleepList.splice(0, length);
-    console.log(currentDaySleepList);
     return makeDailySleep(currentDaySleepList);
   }
 

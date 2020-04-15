@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import Header from '../Header/Header';
 import '../App/App.css';
@@ -34,7 +34,7 @@ const Write = props => {
     options.push(<option key={i} value={i}>
       {i}
       점
-                 </option>);
+    </option>);
   }
 
   const handleSubmit = e => {

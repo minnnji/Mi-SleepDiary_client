@@ -7,7 +7,14 @@
 fill: rgb(88, 230, 255);
 }
 
+.dailyWrapper {
+  position: relative;
+  width: 90px;
+  float: left;
+}
+
 .tooltip {
+  position: absolute;
   float: right;
   width: 100px;
   background-color: black;

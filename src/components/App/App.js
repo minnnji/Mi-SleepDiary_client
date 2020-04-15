@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { checkAuth } from '../../lib/auth';
 import Entrance from '../Entrance/Entrance';
 import LoginContainer from '../../containers/LoginContainer';
