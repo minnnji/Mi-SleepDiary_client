@@ -2,15 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import './Chart.css';
 
-const WeeklyPercentageChart = props => {
+const DailyPatternChart = props => {
   const { sleep } = props;
-
   const svgRef = useRef();
 
   useEffect(() => {
     if (sleep) {
+      console.log(sleep);
       const margin = { top: 10, right: 30, bottom: 20, left: 10 },
-        width = 100,
+        width = 60,
         height = 400;
 
       const svg = d3.select(svgRef.current)
@@ -58,7 +58,7 @@ const WeeklyPercentageChart = props => {
             .style('opacity', 1);
           Tooltip.html(`${new Date(d[1] - d[0]).getHours()}시 ${new Date(d[1] - d[0]).getMinutes()}분 ~`)
             .style('left', `${d3.event.pageX - 10}px`)
-            .style('top', `${d3.event.pageY - 310}px`);
+            .style('top', `${d3.event.pageY - 250}px`);
         })
         .on('mouseout', function () {
           d3.select(this).transition()
@@ -72,6 +72,12 @@ const WeeklyPercentageChart = props => {
         .duration(500)
         .delay((d, i) => i * 1000)
         .attr('height', d => y(d[0]) - y(d[1]));
+
+      const removeChart = () => {
+        svg.selectAll('.dailyChart').remove();
+      };
+
+      return () => removeChart();
     }
   }, [sleep]);
 
@@ -80,4 +86,4 @@ const WeeklyPercentageChart = props => {
   );
 };
 
-export default WeeklyPercentageChart;
+export default DailyPatternChart;

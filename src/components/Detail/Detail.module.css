@@ -3,7 +3,7 @@
   background-size: 100% 740px;
 }
 
-.background {
+.contents {
   margin: 0 0 55px 0;
   padding-top: 20px;
   min-height: 400px;
@@ -12,8 +12,42 @@
   color: #333333;
 }
 
-.contents {
+.limitWidth {
   margin: 0 18px;
+}
+
+.sleepWrapper {
+  float: left;
+  padding: 0 1em;
+  height: 370px;
+  width: 275px;
+}
+
+.sleepItemIcon {
+  width: fit-content;
+  margin: 1.4em;
+  padding: 0 .5em;
+  background-color: white;
+  border: 1px solid #1c8597;
+  border-radius: .5em;
+  align-self: center;
+  text-align: center;
+  font-size: .9em;
+  color: #1c8597;
+}
+
+.sleepData {
+  margin: .2em;
+}
+
+.light {
+  display: inline-block;
+  margin-right: 2em;
+}
+
+.scoreWrapper {
+  clear: both;
+  padding-top: 2em;
 }
 
 .title {

@@ -1,19 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import DailyPatternChart from '../Chart/DailyPatternChart';
 import styles from './Detail.module.css';
 
-const DetailHeader = ({ detail }) => {
-  const { createdAt, wakeUpTime, bedTime, sleepDuration } = detail;
-
-  const sleepDurationList = sleepDuration.split(':');
-  const durationHours = sleepDurationList[1] >= 30 ? `${sleepDurationList[0]}.5` : sleepDurationList[0];
-  const date = moment(createdAt).format('YYYY.MM.DD');
-  const hours = `${durationHours}시간`;
-  const duration = `${moment(bedTime).format('HH:mm')}~${moment(wakeUpTime).format('HH:mm')}`;
+const DetailHeader = ({ sleep }) => {
+  const { date, hours, duration } = sleep;
 
   return (
     <section className="sleepInfo">
@@ -25,11 +18,29 @@ const DetailHeader = ({ detail }) => {
   );
 };
 
-const DetailDiary = ({ detail }) => {
-  const { behaviorScore, feelingColor, behaviorScoreReason, memo } = detail;
+const DetailSleep = ({ sleep }) => {
+  const { sleepCycle } = sleep;
+  console.log(sleepCycle);
+
+  return (
+    <div className={styles.sleepWrapper}>
+      <span className={styles.sleepItemIcon}>얕은 수면</span>
+      <span className={styles.sleepItemIcon}>깊은 수면</span>
+      { sleepCycle.map(cycle => {
+        if (cycle[0] === 'light') {
+          return <span className={styles.light}>{`${cycle[1]} ~ ${cycle[2]}`}</span>;
+        }
+        return <span className={styles.deep}>{`${cycle[1]} ~ ${cycle[2]}`}</span>;
+      })}
+    </div>
+  );
+};
+
+const DetailDiary = ({ diary }) => {
+  const { behaviorScore, feelingColor, behaviorScoreReason, memo } = diary;
   return (
     <>
-      <div>
+      <div className={styles.scoreWrapper}>
         <h2 className={styles.title}>
           오늘 나의 말, 행동을
           <br />
@@ -65,10 +76,11 @@ const DetailDiary = ({ detail }) => {
 };
 
 export default function Detail(props) {
-  const { sleep } = props;
+  const { sleep, cycleForDailyChart } = props;
   const isLoading = Object.keys(sleep).length === 0;
   const link = `/write?sleepId=${sleep._id}`;
   let diary;
+
   if (sleep) diary = sleep.diary;
 
   return (
@@ -77,11 +89,12 @@ export default function Detail(props) {
       {isLoading && <div>Loading!</div>}
       {!isLoading && (
         <main>
-          <DetailHeader detail={sleep} />
-          <div className={styles.background}>
-            <div className={styles.contents}>
-              <DailyPatternChart sleep={sleep.sleepCycle} />
-              {diary && <DetailDiary detail={diary} />}
+          <DetailHeader sleep={sleep} />
+          <div className={styles.contents}>
+            <div className={styles.limitWidth}>
+              <DailyPatternChart sleep={cycleForDailyChart} />
+              <DetailSleep sleep={sleep} />
+              {diary && <DetailDiary diary={diary} />}
               {!diary
                 && (
                   <Link to={link}>

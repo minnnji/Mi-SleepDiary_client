@@ -8,7 +8,7 @@ import * as actions from '../actions/index';
 import Home from '../components/Home/Home';
 
 const HomeContainer = props => {
-  const { user, getLatelySleep } = props;
+  const { user, latelySleep, getLatelySleep } = props;
   const [sleepForDailyCycleChart, setSleepForDailyCycleChart] = useState([]);
 
   const getGoogleFitData = async cb => {
@@ -63,7 +63,6 @@ const HomeContainer = props => {
     actions.receiveSleepPending();
     fetchGetSleep(userId, today, today, false, sleep => {
       getLatelySleep(sleep[0]);
-      getSleepForDailyChart(sleep);
     });
   };
 
@@ -78,14 +77,15 @@ const HomeContainer = props => {
   }, [user.email]);
 
   return (
-    <Home user={user} sleepForDailyCycleChart={sleepForDailyCycleChart} />
+    <Home user={user} latelySleep={latelySleep} />
   );
 };
 
 const mapStateToProps = state => {
-  const { user } = state;
+  const { user, latelySleep } = state;
   return {
-    user
+    user,
+    latelySleep: latelySleep.sleeps
   };
 };
 

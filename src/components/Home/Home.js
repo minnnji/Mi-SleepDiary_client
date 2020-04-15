@@ -1,13 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import Header from '../Header/Header';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import DailyPatternChart from '../Chart/DailyPatternChart';
 import styles from './Home.module.css';
 
 const Home = props => {
-  const { user, sleepForDailyCycleChart } = props;
-  // const { bedTime, wakeUpTime, deepSleepPercentage, lightSleepPercentage, sleepDuration } = sleepForDailyCycleChart;
+  const { user, latelySleep } = props;
+  let sleepInfo;
+
+  if (latelySleep) {
+    const {
+      bedTime,
+      createdAt,
+      wakeUpTime,
+      sleepDuration
+    } = latelySleep;
+    const sleepDurationList = sleepDuration.split(':');
+
+    sleepInfo = {
+      createdAt: moment(createdAt).format('YYYY.MM.DD'),
+      bedTime: moment(bedTime).format('LT'),
+      wakeUpTime: moment(wakeUpTime).format('LT'),
+      sleepDuration: `${sleepDurationList[0]}시간 ${sleepDurationList[1]}분`
+    };
+  }
 
   return (
     <div>
@@ -27,10 +45,28 @@ const Home = props => {
           </div>
           <div className={styles.sleepCard}>
             <h3 className={styles.sleepTitle}>지난 밤, 나의 수면상태는?</h3>
-            <DailyPatternChart sleep={sleepForDailyCycleChart.sleepCycle} />
-            <div className={styles.sleepDetail}>
-              <p>잠든 시간 : </p>
-            </div>
+            {latelySleep && (
+              <div className={styles.sleepDetail}>
+                <span className="subText">
+                  (
+                  {sleepInfo.createdAt}
+                  {' '}
+                  기준)
+                </span>
+                <p>
+                  • 잠든 시간
+                  <span className={styles.detail}>{sleepInfo.bedTime}</span>
+                </p>
+                <p>
+                  • 일어난 시간
+                  <span className={styles.detail}>{sleepInfo.wakeUpTime}</span>
+                </p>
+                <p>
+                  • 총 수면시간
+                  <span className={styles.detail}>{sleepInfo.sleepDuration}</span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </main>
