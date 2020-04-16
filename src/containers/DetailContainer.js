@@ -31,9 +31,6 @@ const DetailContainer = props => {
     const { _id, createdAt, bedTime, wakeUpTime, sleepDuration, sleepCycle, diary } = sleep;
 
     const sleepDurationList = sleepDuration.split(':');
-    const roundingHours = sleepDurationList[1] >= 30
-      ? `${sleepDurationList[0]}.5 시간`
-      : `${sleepDurationList[0]}시간`;
     const hours = `${sleepDurationList[0]}시간 ${sleepDurationList[1]}분`;
     const duration = `${moment(bedTime).format('LT')} ~ ${moment(wakeUpTime).format('LT')}`;
 
@@ -46,9 +43,6 @@ const DetailContainer = props => {
 
     const sleepInfo = {
       date: moment(createdAt).format('YYYY.MM.DD'),
-      bedTime: moment(bedTime).format('LT'),
-      wakeUpTime: moment(wakeUpTime).format('LT'),
-      roundingHours,
       hours,
       duration,
       sleepCycle: setTimeCycle,
@@ -82,8 +76,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DetailContainer);
+export default connect(mapStateToProps)(DetailContainer);

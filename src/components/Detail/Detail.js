@@ -1,65 +1,55 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
+import TopSleepInfo from '../TopSleepInfo/TopSleepInfo';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import DailyPatternChart from '../Chart/DailyPatternChart';
 import styles from './Detail.module.css';
 
-const DetailHeader = ({ sleep }) => {
-  const { date, hours, duration } = sleep;
-
-  return (
-    <section className="sleepInfo">
-      <div className="date">{date}</div>
-      <h1 className="sleepInfo-title">나의 수면시간</h1>
-      <h1 className="hours">{hours}</h1>
-      <div className="time">{duration}</div>
-    </section>
-  );
-};
-
-const DetailSleep = ({ sleep }) => {
+// export for testing purpose
+export const DetailSleep = ({ sleep }) => {
   const { sleepCycle } = sleep;
-  console.log(sleepCycle);
 
   return (
     <div className={styles.sleepWrapper}>
       <span className={styles.sleepItemIcon}>얕은 수면</span>
       <span className={styles.sleepItemIcon}>깊은 수면</span>
-      { sleepCycle.map(cycle => {
+      { sleepCycle.map((cycle, i) => {
         if (cycle[0] === 'light') {
-          return <span className={styles.light}>{`${cycle[1]} ~ ${cycle[2]}`}</span>;
+          return <span key={i} className={styles.lightSleep}>{`${cycle[1]} ~ ${cycle[2]}`}</span>;
         }
-        return <span className={styles.deep}>{`${cycle[1]} ~ ${cycle[2]}`}</span>;
+        return <span key={i}>{`${cycle[1]} ~ ${cycle[2]}`}</span>;
       })}
     </div>
   );
 };
 
-const DetailDiary = ({ diary }) => {
+// export for testing purpose
+export const DetailDiary = ({ diary }) => {
   const { behaviorScore, feelingColor, behaviorScoreReason, memo } = diary;
+
   return (
     <>
       <div className={styles.scoreWrapper}>
-        <h2 className={styles.title}>
+        <h2 className={styles.diaryTitle}>
           오늘 나의 말, 행동을
           <br />
           점수로 매긴다면?
         </h2>
-        <h2 className={styles.score}>
+        <h2 className={styles.diaryScore}>
           {behaviorScore}
           점
         </h2>
         <div className={styles.subText}>{behaviorScoreReason}</div>
       </div>
       <div className={styles.colorWrapper}>
-        <h2 className={styles.title}>
+        <h2 className={styles.diaryTitle}>
           오늘 나의 기분을
           <br />
           색깔로 표현하면?
         </h2>
         <div
-          className={styles.color}
+          className={styles.diaryColor}
           style={{ backgroundColor: feelingColor[0] }}
         >
           {feelingColor[1]}
@@ -89,7 +79,7 @@ export default function Detail(props) {
       {isLoading && <div>Loading!</div>}
       {!isLoading && (
         <main>
-          <DetailHeader sleep={sleep} />
+          <TopSleepInfo sleep={sleep} />
           <div className={styles.contents}>
             <div className={styles.limitWidth}>
               <DailyPatternChart sleep={cycleForDailyChart} />
@@ -98,7 +88,7 @@ export default function Detail(props) {
               {!diary
                 && (
                   <Link to={link}>
-                    <div className="button fill">나의 하루 기록하기</div>
+                    <div className="button fill" id="wirteButton">나의 하루 기록하기</div>
                   </Link>
                 )}
             </div>

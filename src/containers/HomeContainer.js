@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { requestBody, requestGoogleFitApi } from '../lib/api/googleFit';
 import setDailySleep from '../lib/helper';
@@ -9,7 +9,6 @@ import Home from '../components/Home/Home';
 
 const HomeContainer = props => {
   const { user, latelySleep, getLatelySleep } = props;
-  const [sleepForDailyCycleChart, setSleepForDailyCycleChart] = useState([]);
 
   const getGoogleFitData = async cb => {
     const lastUpdate = user.sleepLastUpdatedAt;
@@ -18,7 +17,6 @@ const HomeContainer = props => {
       : new Date().setHours(-(24 * 14) + 18, 0, 0, 0);
     requestBody.endTimeMillis = new Date().setHours(18, 0, 0, 0);
     const sleepResponse = await requestGoogleFitApi(requestBody);
-
     cb(sleepResponse);
   };
 
@@ -36,26 +34,6 @@ const HomeContainer = props => {
     }
 
     cb();
-  };
-
-  const getSleepForDailyChart = sleepList => {
-    const latestSleep = sleepList[0];
-    const { sleepCycle } = latestSleep;
-    const sleepCycleForChart = [];
-    const sleep = {};
-
-    for (let i = 0; i < sleepCycle.length; i++) {
-      const startTime = sleepCycle[i][0];
-      const sleepType = sleepCycle[i][2];
-
-      sleep[sleepType + i] = startTime;
-    }
-    sleepCycleForChart.push(sleep);
-
-    setSleepForDailyCycleChart({
-      ...latestSleep,
-      sleepCycle: sleepCycleForChart
-    });
   };
 
   const getTodaySleep = async userId => {

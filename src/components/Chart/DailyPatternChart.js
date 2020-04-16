@@ -8,7 +8,6 @@ const DailyPatternChart = props => {
 
   useEffect(() => {
     if (sleep) {
-      console.log(sleep);
       const margin = { top: 10, right: 30, bottom: 20, left: 10 },
         width = 60,
         height = 400;
