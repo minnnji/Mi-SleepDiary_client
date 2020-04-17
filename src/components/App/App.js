@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { checkAuth } from '../../lib/auth';
 import Entrance from '../Entrance/Entrance';
 import LoginContainer from '../../containers/LoginContainer';
@@ -14,13 +14,14 @@ export default function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" render={props => checkAuth(<Entrance {...props} />, true)} />
+        <Route exact path="/" render={props => checkAuth(<HomeContainer {...props} />, true)} />
         <Route path="/login" render={props => <LoginContainer {...props} />} />
         <Route path="/home" render={props => checkAuth(<HomeContainer {...props} />)} />
         <Route path="/write" render={props => checkAuth(<WriteContainer {...props} />)} />
         <Route path="/list" render={props => checkAuth(<SleepListContainer {...props} />)} />
         <Route path="/chart" render={props => checkAuth(<ChartContainer {...props} />)} />
         <Route path="/detail" render={props => checkAuth(<DetailContainer {...props} />)} />
+        <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
   );

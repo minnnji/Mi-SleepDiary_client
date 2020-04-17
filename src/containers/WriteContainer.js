@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import Loading from '../components/Loading/Loading';
 import Write from '../components/Write/Write';
 import fetchPostDiary from '../lib/api/diary';
-import { fetchUpdateUserInfo } from '../lib/api/user';
 import { fetchUpdateSleepInfo, fetchGetSleepById } from '../lib/api/sleep';
 
 const WriteContainer = props => {
-  const { location, user, latelySleep } = props;
+  const { history, location, user, latelySleep } = props;
   const { sleepId } = queryString.parse(location.search);
   const userId = user._id;
 
@@ -26,17 +26,23 @@ const WriteContainer = props => {
     }
   }, [userId]);
 
-  const saveDiary = content => fetchPostDiary(userId, content, diary => {
+  const saveDiary = async content => {
+    const diary = await fetchPostDiary(userId, content);
     const { date, _id } = diary;
     const reqBody = {};
+
     reqBody[date] = _id;
-    fetchUpdateUserInfo(userId, { myDiaries: reqBody });
-    fetchUpdateSleepInfo(userId, sleep._id, { diary: _id });
-  });
+
+    await fetchUpdateSleepInfo(userId, sleep._id, { diary: _id });
+    alert('저장되었습니다.');
+
+    const link = `/detail?sleepId=${sleep._id}`;
+    history.push(link);
+  };
 
   return (
     <>
-      {!Object.keys(sleep).length && <div>Loading!</div>}
+      {!Object.keys(sleep).length && <Loading />}
       {Object.keys(sleep).length && (
         <Write
           sleep={sleep}

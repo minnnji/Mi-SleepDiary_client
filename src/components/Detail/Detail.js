@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
+import Loading from '../Loading/Loading';
 import TopSleepInfo from '../TopSleepInfo/TopSleepInfo';
 import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import DailyPatternChart from '../Chart/DailyPatternChart';
@@ -67,7 +68,7 @@ export const DetailDiary = ({ diary }) => {
 
 export default function Detail(props) {
   const { sleep, cycleForDailyChart } = props;
-  const isLoading = Object.keys(sleep).length === 0;
+  const isLoading = !Object.keys(sleep).length;
   const link = `/write?sleepId=${sleep._id}`;
   let diary;
 
@@ -76,25 +77,26 @@ export default function Detail(props) {
   return (
     <div className={styles.detailWrapper}>
       <Header backButton />
-      {isLoading && <div>Loading!</div>}
-      {!isLoading && (
-        <main>
-          <TopSleepInfo sleep={sleep} />
-          <div className={styles.contents}>
-            <div className={styles.limitWidth}>
-              <DailyPatternChart sleep={cycleForDailyChart} />
-              <DetailSleep sleep={sleep} />
-              {diary && <DetailDiary diary={diary} />}
-              {!diary
+      {isLoading
+        ? <Loading />
+        : (
+          <main>
+            <TopSleepInfo sleep={sleep} />
+            <div className={styles.contents}>
+              <div className={styles.limitWidth}>
+                <DailyPatternChart sleep={cycleForDailyChart} />
+                <DetailSleep sleep={sleep} />
+                {diary && <DetailDiary diary={diary} />}
+                {!diary
                 && (
                   <Link to={link}>
                     <div className="button fill" id="wirteButton">나의 하루 기록하기</div>
                   </Link>
                 )}
+              </div>
             </div>
-          </div>
-        </main>
-      )}
+          </main>
+        )}
       <BottomNavigation />
     </div>
   );

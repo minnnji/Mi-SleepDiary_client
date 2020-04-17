@@ -44,3 +44,19 @@ h1 {
   color: rgb(129, 129, 129);
   font-size: 1em;
 }
+
+.loadingWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.loading {
+  position: absolute;
+  margin-left: -5em;
+  margin-top: 8em;
+  width: 10em;
+  height: 10em;
+  left: 50%;
+  top: 50%;
+}

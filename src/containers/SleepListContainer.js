@@ -16,7 +16,7 @@ const SleepListContainer = props => {
     if (user._id) {
       onLoad();
     }
-  }, [user._id, onLoad]);
+  }, [user._id]);
 
   return (
     <SleepList sleepList={sleepList} />

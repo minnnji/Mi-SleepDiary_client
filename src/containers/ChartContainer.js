@@ -43,16 +43,10 @@ const ChartContainer = props => {
   }, [user._id, user.email]);
 
   return (
-    <>
-      {weeklyPatternList.length
-        ? (
-          <Chart
-            user={user}
-            weeklyPatternList={weeklyPatternList}
-          />
-        )
-        : <div>Loading!</div>}
-    </>
+    <Chart
+      user={user}
+      weeklyPatternList={weeklyPatternList}
+    />
   );
 };
 

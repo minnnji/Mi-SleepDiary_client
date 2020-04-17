@@ -5,7 +5,7 @@ export const fetchPostUser = async (profile, cb) => {
   try {
     const userResponse = await axios({
       method: 'post',
-      url: 'http://localhost:4000/api/auth/login',
+      url: 'http://misleepdiary-env.eba-mu69qctx.ap-northeast-2.elasticbeanstalk.com/api/auth/login',
       data: { email, name }
     });
     const user = await userResponse.data;
@@ -19,7 +19,7 @@ export const fetchUpdateUserInfo = async (userId, updateInfo) => {
   try {
     await axios({
       method: 'put',
-      url: `http://localhost:4000/api/users/${userId}`,
+      url: `http://misleepdiary-env.eba-mu69qctx.ap-northeast-2.elasticbeanstalk.com/api/users/${userId}`,
       data: updateInfo
     });
   } catch (error) {

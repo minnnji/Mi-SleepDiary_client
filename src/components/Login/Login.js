@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 import { GoogleLogin } from 'react-google-login';
 import { setHeader } from '../../lib/auth';
 import { fetchPostUser } from '../../lib/api/user';
+import miBand from '../../lib/img/mi-band.jpg';
+import miLogo from '../../lib/img/mi-logo.png';
+import styles from './Login.module.css';
 
 dotenv.config();
 
@@ -33,7 +36,18 @@ const Login = props => {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
+      <div className={styles.top}>
+        <img src={miLogo} className={styles.miLogo} alt="mi-logo" />
+        <h1 className={styles.title}>Sleep Diary</h1>
+        <div className={styles.subText}>
+          Mi band의 수면데이터와 함께
+          <br />
+          하루하루를 남겨보세요!
+        </div>
+      </div>
+      <img src={miBand} className={styles.miBand} alt="mi-band" />
+      <div className={styles.subTitle}>로그인 후 이용가능합니다.</div>
       <GoogleLogin
         className="signin-button"
         clientId={process.env.REACT_APP_CLIENT_ID}
@@ -41,7 +55,7 @@ const Login = props => {
         onSuccess={handleSuccessLogin}
         onFailure={handleFailureLogin}
       >
-        <span>구글 아이디로 로그인</span>
+        <span>Google 로그인</span>
       </GoogleLogin>
     </div>
   );
