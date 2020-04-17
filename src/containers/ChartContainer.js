@@ -11,12 +11,12 @@ moment.locale('ko', {
 const ChartContainer = props => {
   const { user } = props;
   const [weeklyPatternList, setWeeklyPatternList] = useState([]);
+  const today = moment();
+  const sevenDaysAgo = moment().subtract(7, 'd');
+  const term = `< ${moment(sevenDaysAgo).format('YYYY.MM.DD')} ~ ${moment(today).format('YYYY.MM.DD')} >`;
 
   useEffect(() => {
     if (user.email) {
-      const today = moment(),
-        sevenDaysAgo = moment().subtract(7, 'd');
-
       fetchGetSleep(user._id, sevenDaysAgo, today, true, sleepList => {
         setWeeklyPatternList(sleepList.map(sleep => {
           const { createdAt,
@@ -46,6 +46,7 @@ const ChartContainer = props => {
     <Chart
       user={user}
       weeklyPatternList={weeklyPatternList}
+      term={term}
     />
   );
 };
@@ -57,7 +58,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChartContainer);
+export default connect(mapStateToProps)(ChartContainer);

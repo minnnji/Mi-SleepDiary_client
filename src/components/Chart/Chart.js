@@ -7,7 +7,7 @@ import '../App/App.css';
 import './Chart.css';
 
 const Chart = props => {
-  const { weeklyPatternList } = props;
+  const { weeklyPatternList, term } = props;
   const isLoading = !weeklyPatternList.length;
   const keys = ['deep', 'light'],
     colors = { deep: '#080850', light: '#471FB3' };
@@ -15,15 +15,23 @@ const Chart = props => {
   return (
     <>
       <Header />
-      {isLoading
-        ? <Loading />
-        : (
-          <WeeklyPercentageChart
-            sleepList={weeklyPatternList}
-            keys={keys}
-            colors={colors}
-          />
-        )}
+      <main>
+        <section>
+          <h2 className="title">
+            주간 수면패턴 차트
+          </h2>
+        </section>
+        {isLoading
+          ? <Loading />
+          : (
+            <WeeklyPercentageChart
+              sleepList={weeklyPatternList}
+              keys={keys}
+              colors={colors}
+              term={term}
+            />
+          )}
+      </main>
       <BottomNavigation />
     </>
   );

@@ -3,14 +3,14 @@ import * as d3 from 'd3';
 import './Chart.css';
 
 const WeeklyPercentageChart = props => {
-  const { sleepList, keys, colors } = props;
+  const { sleepList, keys, colors, term } = props;
   const data = sleepList;
   const svgRef = useRef();
 
   useEffect(() => {
     const margin = { top: 10, right: 30, bottom: 20, left: 50 },
       width = 370,
-      height = 400;
+      height = 350;
 
     const svg = d3.select(svgRef.current)
       .append('svg')
@@ -35,10 +35,8 @@ const WeeklyPercentageChart = props => {
 
     svg.append('g')
       .attr('transform', `translate(0,${height - margin.top - margin.bottom})`)
+      .attr('class', 'axis')
       .call(d3.axisBottom(x).tickSizeOuter(0));
-
-    svg.append('g')
-      .call(d3.axisLeft(y));
 
     const bars = svg.append('g')
       .selectAll('g')
@@ -85,12 +83,22 @@ const WeeklyPercentageChart = props => {
       .attr('class', 'text-deepPercent')
       .attr('text-anchor', 'middle')
       .attr('x', d => x(d.data.day) + x.bandwidth() / 2)
-      .attr('y', 350)
+      .attr('y', 300)
       .text(d => `${d.data.deepSleepPercentage}%`);
   }, []);
 
   return (
-    <div ref={svgRef} />
+    <>
+      <div className="term">{term}</div>
+      <div ref={svgRef} />
+      <div className="description">
+        <span className="total">총 수면시간</span>
+        <span className="light">얕은 수면</span>
+        <span className="deep">깊은 수면</span>
+        <br />
+        <span className="deepPercentage">하루 중, 깊은 수면의 비율</span>
+      </div>
+    </>
   );
 };
 
