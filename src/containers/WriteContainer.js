@@ -47,6 +47,7 @@ const WriteContainer = props => {
         <Write
           sleep={sleep}
           saveDiary={saveDiary}
+          history={history}
         />
       )}
     </>

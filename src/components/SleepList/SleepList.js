@@ -7,7 +7,7 @@ import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import styles from './SleepList.module.css';
 
 const SleepList = props => {
-  const { sleepList } = props;
+  const { sleepList, history } = props;
   const isLoading = !sleepList;
   let cards;
 
@@ -69,7 +69,7 @@ const SleepList = props => {
 
   return (
     <>
-      <Header />
+      <Header history={history} />
       <main>
         <section>
           <h2 className={styles.title}>

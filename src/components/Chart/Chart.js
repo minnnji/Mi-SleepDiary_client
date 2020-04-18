@@ -7,14 +7,14 @@ import '../App/App.css';
 import './Chart.css';
 
 const Chart = props => {
-  const { weeklyPatternList, term } = props;
+  const { weeklyPatternList, term, history } = props;
   const isLoading = !weeklyPatternList.length;
   const keys = ['deep', 'light'],
     colors = { deep: '#080850', light: '#471FB3' };
 
   return (
     <>
-      <Header />
+      <Header history={history} />
       <main>
         <section>
           <h2 className="title">

@@ -8,7 +8,7 @@ import * as actions from '../actions/index';
 import Home from '../components/Home/Home';
 
 const HomeContainer = props => {
-  const { user, latelySleep, getLatelySleep } = props;
+  const { user, latelySleep, getLatelySleep, history } = props;
 
   const getGoogleFitData = async cb => {
     const lastUpdate = user.sleepLastUpdatedAt;
@@ -55,7 +55,11 @@ const HomeContainer = props => {
   }, [user.email]);
 
   return (
-    <Home user={user} latelySleep={latelySleep} />
+    <Home
+      user={user}
+      latelySleep={latelySleep}
+      history={history} 
+    />
   );
 };
 

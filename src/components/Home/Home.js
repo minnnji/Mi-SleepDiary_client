@@ -7,7 +7,7 @@ import BottomNavigation from '../BottomNavigation/BottomNavigation';
 import styles from './Home.module.css';
 
 const Home = props => {
-  const { user, latelySleep } = props;
+  const { user, latelySleep, history } = props;
   const hasUser = user.email !== '';
   const hasLatelySleep = Object.keys(latelySleep).length > 0;
   const isLoading = !hasUser || !hasLatelySleep;
@@ -32,7 +32,7 @@ const Home = props => {
 
   return (
     <div>
-      <Header />
+      <Header history={history} />
       {isLoading && <Loading />}
       {!isLoading
         && (

@@ -5,7 +5,7 @@ import '../App/App.css';
 import './Write.css';
 
 const Write = props => {
-  const { sleep, saveDiary } = props;
+  const { sleep, saveDiary, history } = props;
   const { createdAt, wakeUpTime, bedTime, sleepDuration, _id } = sleep;
 
   const sleepDurationList = sleepDuration.split(':');
@@ -34,7 +34,7 @@ const Write = props => {
     options.push(<option key={i} value={i}>
       {i}
       점
-    </option>);
+                 </option>);
   }
 
   const handleSubmit = e => {
@@ -53,7 +53,7 @@ const Write = props => {
 
   return (
     <>
-      <Header backButton />
+      <Header backButton history={history} />
       <main>
         <section className="sleepInfo">
           <div className="date">{date}</div>

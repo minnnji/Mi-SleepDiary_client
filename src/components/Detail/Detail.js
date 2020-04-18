@@ -67,7 +67,7 @@ export const DetailDiary = ({ diary }) => {
 };
 
 export default function Detail(props) {
-  const { sleep, cycleForDailyChart } = props;
+  const { sleep, cycleForDailyChart, history } = props;
   const isLoading = !Object.keys(sleep).length;
   const link = `/write?sleepId=${sleep._id}`;
   let diary;
@@ -76,7 +76,7 @@ export default function Detail(props) {
 
   return (
     <div className={styles.detailWrapper}>
-      <Header backButton />
+      <Header history={history} />
       {isLoading
         ? <Loading />
         : (

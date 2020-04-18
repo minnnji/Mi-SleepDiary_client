@@ -6,7 +6,7 @@ import Detail from '../components/Detail/Detail';
 import { fetchGetSleepById } from '../lib/api/sleep';
 
 const DetailContainer = props => {
-  const { location, user } = props;
+  const { location, user, history } = props;
   const { sleepId } = queryString.parse(location.search);
 
   const [sleepDetail, setSleepDetail] = useState({});
@@ -65,7 +65,11 @@ const DetailContainer = props => {
   }, [user._id]);
 
   return (
-    <Detail sleep={sleepDetail} cycleForDailyChart={cycleForDailyChart} />
+    <Detail
+      sleep={sleepDetail}
+      cycleForDailyChart={cycleForDailyChart}
+      history={history} 
+    />
   );
 };
 

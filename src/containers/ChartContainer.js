@@ -9,7 +9,7 @@ moment.locale('ko', {
 });
 
 const ChartContainer = props => {
-  const { user } = props;
+  const { user, history } = props;
   const [weeklyPatternList, setWeeklyPatternList] = useState([]);
   const today = moment();
   const sevenDaysAgo = moment().subtract(7, 'd');
@@ -47,6 +47,7 @@ const ChartContainer = props => {
       user={user}
       weeklyPatternList={weeklyPatternList}
       term={term}
+      history={history}
     />
   );
 };

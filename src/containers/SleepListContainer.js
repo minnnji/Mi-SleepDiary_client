@@ -4,7 +4,7 @@ import SleepList from '../components/SleepList/SleepList';
 import { fetchGetAllSleep } from '../lib/api/sleep';
 
 const SleepListContainer = props => {
-  const { user } = props;
+  const { user, history } = props;
   const [sleepList, setSleepList] = useState([]);
 
   async function onLoad() {
@@ -19,7 +19,10 @@ const SleepListContainer = props => {
   }, [user._id]);
 
   return (
-    <SleepList sleepList={sleepList} />
+    <SleepList
+      sleepList={sleepList}
+      history={history}
+    />
   );
 };
 

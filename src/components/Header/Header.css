@@ -7,6 +7,7 @@ header h1 {
   position: relative;
   margin: 0 auto;
   padding-top: .8em;
+  width: 7em;
   height: 55px;
   vertical-align: middle;
   text-align: center;
@@ -15,7 +16,7 @@ header h1 {
 
 .button-back {
   position: absolute;
-  vertical-align: middle;
+  padding-top: .2em;
   width: 40px;
   height: 40px;
   top: 12px;
@@ -23,9 +24,9 @@ header h1 {
   font-size: 1.7em;
 }
 
-.button-menu {
+.button-logout {
   position: absolute;
-  vertical-align: middle;
+  padding-top: .3em;
   width: 40px;
   height: 40px;
   top: 12px;
