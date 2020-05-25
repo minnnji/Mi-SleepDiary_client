@@ -7,7 +7,7 @@ Mi band(Xiaomi Wearable Device)로 수집된 수면데이터를 연동하여
 수면 패턴(깊은 수면, 얕은 수면)을 차트로 확인하고, 말/행동 점수와 함께 그 날의 컨디션을 작성할 수 있는 모바일웹 어플리케이션입니다.   
 ※ Mi band 수면 정보 측정 기능 사용자를 대상으로 하는 서비스로, 연동된 데이터가 있을 경우 사용 가능합니다.   
 
-![mi-sleep-diary_minji](mi-sleep-diary_minji.gif)
+![mi-sleep-diary_minji](./src/lib/img/mi-sleep-diary_minji.gif)   
 [Youtube에서 보기 >](https://youtu.be/b0b6znfjeHM)
 
 사람마다 자신에게 꼭 맞는 수면시간이 있으며 이를 확보하지 못하면 다음날 컨디션, 특히 자신에게 있는 나쁜 습관을 제어하는 능력이 줄어   
