@@ -1,4 +1,4 @@
-# Magnae-note
+# Mi-Sleep Diary
 
 [http://www.mi-sleep-diary.com/](http://www.mi-sleep-diary.com/)   
 개발기간) 2020.04.05. ~ 2020.04.18.  
